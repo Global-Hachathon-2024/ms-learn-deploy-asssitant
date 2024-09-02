@@ -9,7 +9,7 @@ REPOSITORY_URL = "https://github.com/Verify-Email-Tool-for-Outlook-new/msl-autog
 
 class Result:
     def __init__(self, url: str, exec_datetime: datetime.datetime):
-        url = self.__normalize_url(url)
+        url = self.__rm_fragment(url)
 
         self.category = self.__parse_get_category(url)
         self.url_hash = hashlib.sha256(url.encode()).hexdigest()
@@ -17,14 +17,14 @@ class Result:
         self.status = False
         self.stored_url = self.__make_stored_url(url)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.category} {self.url_hash} {self.exec_datetime} {self.status} {self.stored_url}"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
-    def __normalize_url(self, url: str):
-        return url.split('?')[0].split('#')[0]
+    def __rm_fragment(self, url: str) -> str:
+        return url.split('#')[0]
     
     def __parse_get_category(self, url: str):
         # input: "https://learn.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-portal"
