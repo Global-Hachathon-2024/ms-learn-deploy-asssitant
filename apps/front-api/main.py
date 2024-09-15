@@ -10,7 +10,7 @@ import asyncio
 app = FastAPI()
 
 # Azure Storage の接続文字列
-connection_string = "DefaultEndpointsProtocol=https;AccountName=kkndhackathon2024storage;AccountKey=9LKwbAwjAOvBZQFG2Ddt0mDrez1fvLOuNfkJGsPmZusZ4uPNaz93ZdkshXPFkz2QFjokCC9eo6vK+ASt9o3gXA==;EndpointSuffix=core.windows.net"
+connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 queue_name = "hackathon2024queue"
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
 queue_client = queue_service_client.get_queue_client(queue_name)
