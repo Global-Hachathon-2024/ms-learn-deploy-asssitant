@@ -18,15 +18,14 @@ def queue_trigger(msg: func.QueueMessage):
     logging.info('Python Queue trigger processed a message: %s',
                 msg.get_body().decode('utf-8'))
     try:
-        target_url = get_target_url(msg)
-        res = requests.post(f"{WORKER_API_URL}/templates", params={"url": target_url})
+        url = get_url(msg)
+        res = requests.post(f"{WORKER_API_URL}/templates", params={"url": url})
         logging.info(res.text)
     except Exception as e:
         logging.error(e)
 
-def get_target_url(msg: func.QueueMessage) -> str:
-    data = msg.get_json()
-    if data["target_url"]:
-        return data["target_url"]
-    else:
-        raise ValueError("No target_url provided")
+def get_url(msg: func.QueueMessage) -> str:
+    url = msg.get_body().decode('utf-8')
+    if url == "":
+        raise ValueError("No URL provided")
+    return url
