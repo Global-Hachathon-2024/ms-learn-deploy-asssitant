@@ -1,4 +1,4 @@
-import os, uuid
+import os, uuid, re
 import datetime
 
 from azure.identity import DefaultAzureCredential
@@ -16,9 +16,13 @@ queue_service_client = QueueServiceClient.from_connection_string(connection_stri
 queue_client = queue_service_client.get_queue_client(queue_name)
 
 
+def convert_to_en_us_url(url):
+    converted_url = re.sub(r'(https://learn\.microsoft\.com/)([^/]+/)', r'\1en-us/', url)
+    return converted_url
+
 @app.get("/poll_status")
 async def poll_status(url: str):
-
+    url = convert_to_en_us_url(url)
     result = Result(url, datetime.datetime.now())
     db_client = DatabaseClient(connection_string)
 
