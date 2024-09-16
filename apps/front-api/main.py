@@ -18,10 +18,8 @@ queue_client = queue_service_client.get_queue_client(queue_name)
 inprogress_flag = False
 
 
-
 @app.get("/poll_status")
 async def poll_status(url: str):
-    global inprogress_flag
 
     result = Result(url, datetime.datetime.now())
     db_client = DatabaseClient(connection_string)
@@ -33,26 +31,9 @@ async def poll_status(url: str):
         queue_client.send_message(url)
         print(f"Recieved request. Now sent request to queue")
         db_client.update_db(result.category, result.url_hash, "inProgress", 1)
-        inprogress_flag = True
+        return {"status": "uninitialized", "url": ""}
     else:
-        # already in database -> return url
-        return f'Code: {status["storedUrl"]}'
-
-    # database になかった場合、status["inProgress"] == False になるまで待機
-    while inprogress_flag == True:    
-        status = db_client.get_result(result.category, result.url_hash)    
-        if status["inProgress"] == False:
-            inprogress_flag = False
-        await asyncio.sleep(1)
-    
-    status = db_client.get_result(result.category, result.url_hash)
-    return f'Code: {status["storedUrl"]}'
-
-@app.get("/update")
-async def update_data(url: str):
-    global inprogress_flag
-    result = Result(url, datetime.datetime.now())
-    db_client = DatabaseClient(connection_string)
-    db_client.update_db(result.category, result.url_hash, "storedUrl", "test_url2")
-    db_client.update_db(result.category, result.url_hash, "inProgress", 0)
-    return {"status": "Data updated"}
+        if status["inProgress"]:
+            return {"status": "inProgress", "url": ""}
+        else: # already in database -> return url
+            return {"status": "completed", "url": status["storedUrl"]}
