@@ -15,8 +15,6 @@ queue_name = "hackathon2024queue"
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
 queue_client = queue_service_client.get_queue_client(queue_name)
 
-inprogress_flag = False
-
 
 @app.get("/poll_status")
 async def poll_status(url: str):
@@ -26,11 +24,9 @@ async def poll_status(url: str):
 
     status = db_client.get_result(result.category, result.url_hash)
     if status == None:
-        # no database yet
-        db_client.upsert(result)
+        # not in database yet
+        db_client.insert(result)
         queue_client.send_message(url)
-        print(f"Recieved request. Now sent request to queue")
-        db_client.update_db(result.category, result.url_hash, "inProgress", 1)
         return {"status": "uninitialized", "url": ""}
     else:
         if status["inProgress"]:

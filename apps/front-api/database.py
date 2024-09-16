@@ -86,9 +86,9 @@ class DatabaseClient:
     def _initialize(self, conn_str: str):
         self.table_client = TableClient.from_connection_string(conn_str, table_name="testtable")
     
-    def upsert(self, result: Result):
+    def insert(self, result: Result):
         entity = result.to_entity()
-        self.table_client.upsert_entity(entity=entity)
+        self.table_client.create_entity(entity=entity)
         logging.info(f"Inserted a new entity: {entity}")
 
     def get_result(self, partition_key: str, row_key: str):
@@ -98,17 +98,4 @@ class DatabaseClient:
         except Exception as e:
             logging.error(f"Error retrieving entity: {e}")
             return None
-        
-    def update_db(self, partition_key: str, row_key: str, key: str, value: str):
-        try:
-            entity = self.table_client.get_entity(partition_key=partition_key, row_key=row_key)
-            # エンティティのプロパティを更新
-            entity[key] = value
-
-            # エンティティを更新
-            self.table_client.update_entity(entity, mode=UpdateMode.REPLACE)
-            return entity
-        except Exception as e:
-            logging.error(f"Error retrieving entity: {e}")
-            return None
-        
+    
