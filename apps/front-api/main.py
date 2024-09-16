@@ -17,10 +17,6 @@ queue_client = queue_service_client.get_queue_client(queue_name)
 
 inprogress_flag = False
 
-@app.post("/enqueue")
-async def enqueue_message(url):
-    queue_client.send_message(url)
-    return {"status": "Message enqueued", "message": url}
 
 
 @app.get("/poll_status")
