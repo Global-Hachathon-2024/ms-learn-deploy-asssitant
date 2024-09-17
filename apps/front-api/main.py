@@ -27,13 +27,15 @@ async def poll_status(url: str):
     db_client = DatabaseClient(connection_string)
 
     status = db_client.get_result(result.category, result.url_hash)
-    if status == None:
-        # not in database yet
+    if status == None: # not in database yet
         db_client.insert(result)
         queue_client.send_message(url)
         return {"status": "uninitialized", "url": ""}
-    else:
-        if status["inProgress"]:
+    else: 
+        if status["inProgress"]: # inprogress
             return {"status": "inProgress", "url": ""}
-        else: # already in database -> return url
-            return {"status": "completed", "url": status["storedUrl"]}
+        else: # already in database 
+            if status ["isValid"]:
+                return {"status": "completed", "url": status["storedUrl"]}
+            else:
+                return {"status": "invalid", "url": status["storedUrl"]}
