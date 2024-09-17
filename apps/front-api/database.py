@@ -5,7 +5,7 @@ import re
 
 from azure.data.tables import TableClient, UpdateMode
 
-REPOSITORY_URL = "https://github.com/Verify-Email-Tool-for-Outlook-new/msl-autogen-templates"
+REPOSITORY_URL = "https://github.com/Global-Hachathon-2024/msl-autogen-templates"
 
 class Result:
     def __init__(self, url: str, exec_datetime: datetime.datetime):
@@ -38,7 +38,7 @@ class Result:
     
     def __make_stored_url(self, url: str) -> str:
         # input: "https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=linux%2Cbash%2Cazure-cli%2Cbrowser"
-        # output: "https://github.com/Verify-Email-Tool-for-Outlook-new/msl-autogen-templates/azure-functions/create-first-function-cli-python+linux+bash+azure-cli+browser"
+        # output: "https://github.com/Global-Hachathon-2024/msl-autogen-templates/azure-functions/create-first-function-cli-python+linux+bash+azure-cli+browser"
         match = re.search(r'azure/(.*)', url)
         if match:
             last_path = match.group(1)
