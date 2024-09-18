@@ -7,9 +7,10 @@ import requests
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 
-from generate import generate_arm_template
-from validate import validate_arm_template
+from generate import generate_bicep
+from validate import validate_bicep
 from database import DatabaseClient, Result
+from push_code import push_to_github
 
 RETRY_CNT = 2
 
@@ -37,13 +38,13 @@ async def generate_handler(url: str):
     else:
         msg = f"Failed to get a page from {url}"
         handle_error(500, msg)
-
-    template = generate_arm_template(url)
+    
+    generated = generate_bicep(url)
     result = Result(url, datetime.datetime.now())
 
-    is_valid = validate_arm_template(template)
+    is_valid, err_message = validate_bicep(generated)
     if is_valid:
-        handle_success(url, result, template)
+        handle_complete(url, is_valid, generated)
         return f"ARM template for {url} generated successfully"
     
     logging.info(f"Generated ARM template is invalid")
@@ -51,19 +52,27 @@ async def generate_handler(url: str):
     # TODO: if invalid, get an error message and retry to generate an ARM template with some references
     for i in range(RETRY_CNT):
         logging.info(f"try to generate an ARM template {i+2} times")
-        template = generate_arm_template(url)
+        generated = generate_bicep(url)
         result.exec_datetime = datetime.datetime.now()
-        is_valid = validate_arm_template(template)
+        is_valid, err_message = validate_bicep(generated)
         if is_valid:
-            handle_success(url, result, template)
+            handle_complete(url, is_valid, generated)
             return f"ARM template for {url} generated successfully"
+    handle_complete(url, is_valid, generated)
     handle_error(500, "Failed to generate an ARM template")
 
-def handle_success(url: str, result: Result, template: str):
+# TODO: handle error and response to the client gracefully
+def handle_complete(url: str, is_valid: bool, bicep: str):
+    """
+    Handle the completion of generating an ARM template
+    Args:
+        url (str): URL of the page
+        is_valid (bool): Whether the generated template is valid or not
+        bicep (str): File path of the generated Bicep file
+    """
     logging.info(f"Generated ARM template for {url} successfully")
-    result.status = True
-    db_client.upsert(result)
-    # TODO: save it to our GitHub repository
+    db_client.finish(url, is_valid)
+    push_to_github(bicep, url)
 
 def handle_error(code, msg):
     logging.error(msg)

@@ -15,8 +15,8 @@ def push_to_github(bicep: str, url: str, **kwargs) -> None:
     Push the given bicep file to the GitHub repository
     Args:
         bicep (str): path to the bicep file
-        params (str): path to the parameters.json file
         url (str): URL to generate a stored path
+        params (str): path to the parameters.json file
     """
     # TODO: commonize the code to push a file to the GitHub repository
     if not bicep.endswith('.bicep'):
@@ -56,7 +56,7 @@ def make_stored_path(url: str) -> str:
     """
     Generate a stored path from the given URL, which doesn't end with '/'
     Args:
-        url (str): URL to generate a stored path
+        url (str): MS Learn URL for Quick Start to generate a stored path
     Returns:
         str: stored path
     """

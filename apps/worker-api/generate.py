@@ -1,6 +1,13 @@
 # TODO: make a prompt texts 
 # TODO: request AOAI to generate a ARM template
-def generate_arm_template(url: str) -> str:
+def generate_bicep(url: str) -> str:
+    """
+    Generate a Bicep file from the given URL
+    Args:
+        url (str): URL to generate a Bicep file
+    Returns:
+        str: file path of the generated Bicep file
+    """
     return """
     {
         "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
