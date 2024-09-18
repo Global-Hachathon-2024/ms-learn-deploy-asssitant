@@ -1,0 +1,18 @@
+path: quickstarts/microsoft.databricks/databricks-vnet-for-vnet-injection-with-nat-gateway
+---
+description: This template allows you to create a Virtual Network for Azure Databricks VNet injection with natgateway.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: databricks-vnet-for-vnet-injection-with-nat-gateway
+languages:
+- bicep
+- json
+---
+# AzureDatabricks Virtual Network - VNet Injection NAT Gateway
+
+This template allows you to create a Virtual Network for Azure Databricks VNet injection with nat gateway.
+For more information, see the <a href="https://docs.microsoft.com/azure/azure-databricks/">Azure Databricks Documentation.
+
+`Tags: Microsoft.Network/publicIPAddresses, Microsoft.Network/natGateways, Microsoft.Network/virtualNetworks, Microsoft.Network/networkSecurityGroups`

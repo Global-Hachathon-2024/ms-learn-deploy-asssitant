@@ -1,0 +1,26 @@
+path: quickstarts/microsoft.network/bastion-hub-spoke-vnet
+---
+description: This template creates two vNets with peerings, a Bastion host in the Hub vNet and a Linux VM in the spoke vNet
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: bastion-hub-spoke-vnet
+languages:
+- bicep
+- json
+---
+# Deploy a Bastion host in a hub Virtual Network
+
+This template deploys two Virtual Networks in hub-n-spoke topology together with an Azure Bastion Host on the hub vNet and a Linux VM in the spoke vNet.
+The goal is to demonstrate the use of Azure Bastion in the hub-n-spoke architecture.
+
+## Prerequisites
+
+There are no prerequistes for this deployment
+
+## Deployment steps
+
+You can click the "Deploy to Azure" button at the beginning of this document or follow the instructions for command line deployment using the scripts in the root of this repo.
+
+`Tags: bastion, hubnspoke, vnet, peering, Microsoft.Network/virtualNetworks, Microsoft.Network/virtualNetworks/virtualNetworkPeerings, Microsoft.Network/publicIPAddresses, Microsoft.Network/bastionHosts, Microsoft.Storage/storageAccounts, Microsoft.Network/networkInterfaces, Microsoft.Compute/virtualMachines`

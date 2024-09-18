@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.web/app-service-docs-linux
+---
+description: This template is to be used with http&#58;//docs.microsoft.com/azure/app-service/quickstart-arm-template
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: app-service-docs-linux
+languages:
+- json
+- bicep
+---
+# App Service Quickstart - Linux App
+
+This template is to be used with: [Quickstart: Create App Service app using an Azure Resource Manager template](https://docs.microsoft.com/azure/app-service/quickstart-arm-template).
+
+`Tags: Microsoft.Web/serverfarms, Microsoft.Web/sites, SystemAssigned, Microsoft.Web/sites/sourcecontrols`

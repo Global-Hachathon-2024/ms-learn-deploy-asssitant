@@ -1,0 +1,29 @@
+path: quickstarts/microsoft.documentdb/cosmosdb-sql-analytical-store
+---
+description: This template creates an Azure Cosmos account for Core (SQL) API with a database and container configured with analytical store.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: cosmosdb-sql-analytical-store
+languages:
+- json
+- bicep
+---
+# Azure Cosmos DB account SQL API with analytical store
+
+This template creates an Azure Cosmos account for Core (SQL) API with a database and container configured with autoscale and analytical store.
+
+Below are the parameters which can be user configured in the parameters file or template including:
+
+- **Account Name:** Enter the account name for the Cosmos account.
+- **Location:** Enter location for the primary write region.
+- **Database Name:** Enter the database name for the account.
+- **Container Name:** Enter the name for the container for the account.
+- **Partition Key Path:** Enter the path for the partition key for the container.
+- **Throughput Policy:** Select Manual or Autoscale throughput policy.
+- **Manual Provisioned Throughput:** Enter the RU/s for the container when Throughput Policy is Manual (default 400).
+- **Autoscale Max Throughput:** Enter the maximum RU/s for the container when Throughput Policy is Autoscale (default 4000).
+- **Analytical Store TTL:** Enter the time to live for data in analytical store (-1 is no expiration).
+
+`Tags: Microsoft.DocumentDB/databaseAccounts, Microsoft.DocumentDB/databaseAccounts/sqlDatabases, Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers`

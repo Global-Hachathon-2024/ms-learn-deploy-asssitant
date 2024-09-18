@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.network/front-door-managed-waf-ruleset
+---
+description: This template configures WAF managed defaultRuleSet for Azure Front Door
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: front-door-managed-waf-ruleset
+languages:
+- json
+- bicep
+---
+# Configure WAF managed defaultRuleSet for Azure Front Door
+
+This template configures **WAF** managed defaultRuleSet for **Azure Front Door**
+
+`Tags: Microsoft.Network/FrontDoorWebApplicationFirewallPolicies`

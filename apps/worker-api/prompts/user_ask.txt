@@ -1,0 +1,14 @@
+Please create a Bicep file and a parameters.json based on the following quickstart document.
+=====
+MSLEARN_CONTENT
+=====
+
+Refer to the successfully deployed example files provided below for guidance.
+=====
+```azuredeploy.bicep
+BICEP
+```
+
+```azuredeploy.parameters.json
+PARAMETERS_JSON
+```

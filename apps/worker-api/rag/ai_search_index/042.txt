@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.cache/redis-enterprise-vectordb
+---
+description: This template creates a Redis Cache that can be used as Vector DB to store and query embeddings via indexes. For this feature, the Redis Search module is activated in Azure Redis
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: redis-enterprise-vectordb
+languages:
+- bicep
+- json
+---
+# Redis Enterprise with Vector DB
+
+Create an Azure Cache for Redis instance with `Redis Search` module installed on it. Redis Search module allows you to use Redis Cache as a vector DB where user can store embeddings, create indexes and then query the embeddings using vector search, semantic search and hybrid search. Currently, only Azure Redis Enterprise supports the `Redis Search` module. This template will provision an Enterprise Azure Cache for Redis along with Redis search module installed on top of it.
+
+For information about using this template, see [Create an Azure Cache for Redis using an ARM template](https://azure.microsoft.com/documentation/articles/cache-redis-cache-arm-provision/).
+
+`Tags: Microsoft.Cache/redis`

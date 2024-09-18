@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.compute/vm-tags
+---
+description: This template will deploy a D2_v3 Windows VM, NIC, Storage Account, Virtual Network, Public IP Address, and Network Security Group. The tag object is created in the variables and will be applied on all resources, where applicable.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: vm-tags
+languages:
+- bicep
+- json
+---
+# Deploy a simple Windows VM with tags
+
+This template allows you to deploy a simple Windows VM using a few different options for the Windows version, using the latest patched version. This will include tags on the Virtual Machine, Storage Account, Public IP Address, Virtual Network, and Network Interface.
+
+`Tags: Microsoft.Storage/storageAccounts, Microsoft.Network/publicIPAddresses, Microsoft.Network/networkSecurityGroups, Microsoft.Network/virtualNetworks, Microsoft.Network/networkInterfaces, Microsoft.Compute/virtualMachines`

@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.recoveryservices/recovery-services-create-vault-with-backup-policies
+---
+description: This template creates a Recovery Services Vault with backup policies and configure optional features such system identity, backup storage type, cross region restore and diagnostics logs and a delete lock.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: recovery-services-create-vault-with-backup-policies
+languages:
+- json
+- bicep
+---
+# Create Recovery Services Vault with backup policies
+
+This module will create a recovery services vault.
+
+You can optionally configure backup policies, system identity, backup storage type, cross region restore and enable diagnostics logs and a delete lock.
+
+`Tags:bicep, recoveryservices, backup, vault, Microsoft.RecoveryServices/vaults, [if(parameters('enableSystemIdentity'), 'SystemAssigned', 'None')], Microsoft.RecoveryServices/vaults/backupPolicies, Microsoft.RecoveryServices/vaults/backupstorageconfig, Microsoft.Authorization/locks, Microsoft.Insights/diagnosticSettings`

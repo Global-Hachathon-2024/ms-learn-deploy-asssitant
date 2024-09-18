@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.web/web-app-asev2-create
+---
+description: Creates an App Service Environment v2 in your virtual network
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: web-app-asev2-create
+languages:
+- json
+- bicep
+---
+# Create an App Service Environment v2
+
+For more details on App Service Environments, see the [Introduction to App Service Environments](https://docs.microsoft.com/azure/app-service/app-service-environment/intro).
+
+`Tags: Microsoft.Web/hostingEnvironments, Microsoft.Network/virtualNetworks`

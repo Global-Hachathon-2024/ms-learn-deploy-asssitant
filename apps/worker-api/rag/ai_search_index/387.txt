@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.web/webapp-basic-linux
+---
+description: This template allows you to deploy an app service plan and a basic Linux web app
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: webapp-basic-linux
+languages:
+- json
+- bicep
+---
+# Deploy a basic Linux web app
+
+This template allows you to deploy an app service plan and a basic Linux web app.
+
+`Tags: Microsoft.Web/serverfarms, Microsoft.Web/sites`

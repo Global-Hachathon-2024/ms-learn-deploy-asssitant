@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.search/azure-search-create
+---
+description: This template creates an Azure Cognitive Search service
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: azure-search-create
+languages:
+- json
+- bicep
+---
+# Azure Cognitive Search service
+
+This template creates a new Azure Cognitive Search Service. The [quickstart](https://docs.microsoft.com/azure/search/search-get-started-arm) article describes how to deploy the template.
+
+If you are unclear as to what parameters are allowed you can check the [Microsoft.Search searchServices template reference](https://docs.microsoft.com/azure/templates/Microsoft.Search/searchServices).
+
+`Tags: Microsoft.Search/searchServices`

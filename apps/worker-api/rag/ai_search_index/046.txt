@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.cdn/cdn-customize
+---
+description: This template creates a CDN Profile and a CDN Endpoint with parameterized configuration settings
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: cdn-customize
+languages:
+- json
+- bicep
+---
+# Create a CDN Profile and a CDN Endpoint with parameters
+
+This template creates a CDN Profile and a CDN Endpoint with parameterized configuration settings.
+
+`Tags: Microsoft.Cdn/profiles, Microsoft.Cdn/profiles/endpoints`

@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.apimanagement/api-management-create-with-msi
+---
+description: This template creates a developer instance of Azure API Management having an MSI Identity
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: api-management-create-with-msi
+languages:
+- bicep
+- json
+---
+# Create an API Management instance having MSI Identity
+
+This template deploys an Azure API Management instance having an MSI Identity.
+
+`Tags: Microsoft.ApiManagement/service, SystemAssigned`

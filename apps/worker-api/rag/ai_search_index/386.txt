@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.web/web-app-with-redis-cache
+---
+description: This template creates an Azure Web App with Redis cache.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: web-app-with-redis-cache
+languages:
+- json
+- bicep
+---
+# Create a Web App plus Redis Cache using a template
+
+For information about using this template, see [Create a Web App plus Redis Cache using a template](https://azure.microsoft.com/documentation/articles/cache-web-app-arm-with-redis-cache-provision/).
+
+`Tags: Microsoft.Web/serverfarms, Microsoft.Web/sites, SystemAssigned, Microsoft.Web/sites/config, Microsoft.Cache/redis`

@@ -1,0 +1,16 @@
+path: quickstarts/microsoft.apimanagement/api-management-simple-zones
+---
+description: This template creates a premium instance of Azure API Management and deploys into an Availability Zone
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: api-management-simple-zones
+languages:
+- bicep
+- json
+---
+# Deploy API Management into Availability Zones
+
+This template deploys an Azure API Management instance into an Availability Zone. It also enables a System Assigned Managed Identity.
+`Tags: Microsoft.ApiManagement/service, SystemAssigned`

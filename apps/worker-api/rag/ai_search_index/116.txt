@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.containerregistry/container-registry-with-policies-and-diagnostics
+---
+description: Azure Container Registry with Policies and Diagnostics (bicep)
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: container-registry-with-policies-and-diagnostics
+languages:
+- json
+- bicep
+---
+# Azure Container Registry with Policies and Diagnostics
+
+This module deploys an Azure Container Registry with policies and diagnostic logs.
+
+You can optionally configure system/user assigned identities, IP rules, public access and zone redundancy.
+
+`Tags: container, registry, docker, acr, Microsoft.ContainerRegistry/registries, Microsoft.Insights/diagnosticSettings, Microsoft.Authorization/locks`

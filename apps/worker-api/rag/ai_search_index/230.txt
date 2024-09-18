@@ -1,0 +1,24 @@
+path: quickstarts/microsoft.machinelearningservices/machine-learning-dataasset-create-from-file-uri
+---
+description: This template creates a data asset/container from file URI in an Azure Machine Learning workspace.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: machine-learning-dataasset-create-from-file-uri
+languages:
+- json
+- bicep
+---
+# Create a Data Asset from File URI
+
+This template creates a data asset/container from file URI in an Azure Machine Learning workspace.
+
+If you are new to Azure Machine Learning, see:
+
+- [Azure Machine Learning service](https://azure.microsoft.com/services/machine-learning-service/)
+- [Azure Machine Learning documentation](https://docs.microsoft.com/azure/machine-learning/)
+- [Azure Machine Learning template reference](https://docs.microsoft.com/azure/templates/microsoft.machinelearningservices/allversions)
+- [Quickstart templates](https://azure.microsoft.com/resources/templates/)
+
+`Tags: Microsoft.MachineLearningServices/workspaces/datastores, Microsoft.Storage/storageAccounts, Microsoft.KeyVault/vaults, Microsoft.Insights/components, Microsoft.MachineLearningServices/workspaces, systemAssigned`

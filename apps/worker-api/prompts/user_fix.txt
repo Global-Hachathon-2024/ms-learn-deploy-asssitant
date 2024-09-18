@@ -1,0 +1,10 @@
+When trying to deploy using `az deployment group create --resource-group quickstart --template-file azuredeploy.bicep --parameters azuredeploy.parameters.json`, the following error occurred.
+
+# Instructions
+Please follow the steps below to make the corrections:
+1. Identify the cause of the error.
+2. Suggest which parts of the existing file should be modified (ensure that the file differs before and after the correction).
+3. Create the final output.
+
+# Error message:
+ERROR_MESSAGE

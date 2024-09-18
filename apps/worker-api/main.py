@@ -38,7 +38,8 @@ async def generate_handler(url: str):
     else:
         msg = f"Failed to get a page from {url}"
         handle_error(500, msg)
-    
+
+    result, directory_path = generate_bicep(url)
     generated = generate_bicep(url)
     result = Result(url, datetime.datetime.now())
 

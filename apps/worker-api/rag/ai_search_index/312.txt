@@ -1,0 +1,25 @@
+path: quickstarts/microsoft.recoveryservices/recovery-services-backup-classic-resource-manager-vms
+---
+description: This template will use existing recovery services vault and existing backup policy, and configures protection of multiple classic and ARM based Azure IaasVMs.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: recovery-services-backup-classic-resource-manager-vms
+languages:
+- json
+- bicep
+---
+# Backup existing IaasVM using Recovery Services
+
+This template will use existing recovery services vault and policy, and enables protection of classic and ARM based IaaSVMs. VM and vault - both must be in same GEO.
+
+To create new Recovery Services Vault, please use this existing template: [Create Recovery Services Vault] (https://github.com/Azure/azure-quickstart-templates/tree/master/101-recovery-services-vault-create)
+
+To create Recovery Services Vault and Weekly Backup Policy, please use this existing template: [Create Recovery Services Vault and Weekly Backup Policy] (https://github.com/Azure/azure-quickstart-templates/tree/master/101-recovery-services-weekly-backup-policy-create)
+
+To create Recovery Services Vault and Daily Backup Policy, please use this existing template: [Create Recovery Services Vault and Daily Backup Policy] (https://github.com/Azure/azure-quickstart-templates/tree/master/101-recovery-services-daily-backup-policy-create)
+
+For more information, Visit [Back up ARM VMs to a Recovery Services vault] (https://azure.microsoft.com/documentation/articles/backup-azure-vms-first-look-arm/)
+
+`Tags: Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems`

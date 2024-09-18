@@ -1,0 +1,22 @@
+path: quickstarts/microsoft.network/private-dns-zone
+---
+description: This template shows how to create a private DNS zone and optionally enable VM registration 
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: private-dns-zone
+languages:
+- json
+- bicep
+---
+# Azure private DNS domain hosting example
+
+This is a starter template that shows how to create a private Azure DNS zone and link it to a Virtual Network.
+
+## Notes
+[Private DNS Overview](https://docs.microsoft.com/azure/dns/private-dns-overview)
+[Private DNS FAQ](https://docs.microsoft.com/azure/dns/dns-faq-private)
+[PrivateDnsZones template format](https://docs.microsoft.com/azure/templates/microsoft.network/privatednszones)
+
+`Tags: Microsoft.Network/virtualNetworks, Microsoft.Network/privateDnsZones, Microsoft.Network/privateDnsZones/virtualNetworkLinks`

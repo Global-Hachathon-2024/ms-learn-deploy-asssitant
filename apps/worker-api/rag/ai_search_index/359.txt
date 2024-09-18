@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.web/app-service-docs-windows
+---
+description: This template is to be used with http&#58;//docs.microsoft.com/azure/app-service/quickstart-arm-template
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: app-service-docs-windows
+languages:
+- bicep
+- json
+---
+# App Service Quickstart - Windows app
+
+This template is to be used with: [Quickstart: Create App Service app using an ARM template](https://docs.microsoft.com/azure/app-service/quickstart-arm-template).
+
+`Tags: Microsoft.Web/serverfarms, Microsoft.Web/sites, sourcecontrols`

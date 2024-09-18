@@ -1,0 +1,28 @@
+path: quickstarts/microsoft.appconfiguration/app-configuration-store
+---
+description: This template creates an Azure App Configuration store.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: app-configuration-store
+languages:
+- json
+- bicep
+---
+# Create an App Configuration Store
+
+This template creates an Azure App Configuration store.  To learn how to reference an App Configuration store, see [App Configuration](https://azure.microsoft.com/resources/templates/101-app-configuration/).
+
+If you are new to App Configurations, see:
+
+- [Azure App Configuration](https://azure.microsoft.com/services/app-configuration/).
+- [Azure App Configuration Documentation](https://docs.microsoft.com/azure/azure-app-configuration/
+)
+- [Template reference](https://docs.microsoft.com/azure/templates/microsoft.appconfiguration/allversions)
+
+If you are new to template deployment, see:
+
+[Azure Resource Manager documentation](https://docs.microsoft.com/azure/azure-resource-manager/)
+
+`Tags: Azure4Student, AppConfiguration, Beginner, Microsoft.AppConfiguration/configurationStores`

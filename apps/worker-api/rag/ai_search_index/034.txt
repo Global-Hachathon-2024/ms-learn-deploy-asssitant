@@ -1,0 +1,26 @@
+path: quickstarts/microsoft.azurestackhci/storage-container
+---
+description: This template creates an Azure Stack HCI Storage Path/Container representing a physical path on the Azure Stack HCI cluster.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: storage-container
+languages:
+- bicep
+- json
+---
+# Create an Azure Stack HCI Storage Path
+
+This template creates a Storage Path/Container in Azure, representing a physical path in your on-prem Azure Stack HCI cluster. This resource is used in the creation of VMs and images to target a specific path rather than any CSV with space.
+
+## Prerequisites
+
+In order to deploy this template, there must be an operational ARC Resource Bridge associated with your Azure Stack HCI cluster. Further, the resources below must be deployed before running this template:
+
+- Custom Location: This is the custom location resource representing your Azure Stack HCI Cluster in Azure. The following Virtual Network and Image resources must be associated with this custom location.
+
+> [!NOTE]
+> For simplicity, this template assumes the Custom Location, Virtual Network, and Image all reside in the same Resource Group as where the Virtual Machine is being created. 
+
+`Tags: Microsoft.AzureStackHCI/storageContainers, hci`

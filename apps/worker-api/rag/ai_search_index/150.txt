@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.dbformysql/flexible-mysql-with-private-endpoint
+---
+description: This template provides a way to deploy a Azure Database for MySQL Flexible Server with Private Endpoint.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: flexible-mysql-with-private-endpoint
+languages:
+- bicep
+- json
+---
+# Deploy MySQL Flexible Server with Private Endpoint
+
+This template creates a private endpoint, Private DNS Zone and a virtual machine to test the private connection to an Azure Database for MySQL Flexible Server. To learn more about how to deploy the template, see the [quickstart](https://docs.microsoft.com/azure/mysql/flexible-server/quickstart-create-arm-template) article.
+
+For more information about Private Link for Azure Database for MySQL - Flexible Server, see the [docs](https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-networking-private-link)
+
+`Tags: Microsoft.DBforMySQL/flexibleServers, Microsoft.DBforMySQL/flexibleServers/databases, Microsoft.Network/virtualNetworks, Microsoft.Network/virtualNetworks/subnets, Microsoft.Network/privateEndpoints, Microsoft.Network/privateDnsZones, Microsoft.Network/privateDnsZones/virtualNetworkLinks, Microsoft.Network/privateEndpoints/privateDnsZoneGroups, Microsoft.Network/publicIPAddresses, Microsoft.Network/networkInterfaces, Microsoft.Compute/virtualMachines`

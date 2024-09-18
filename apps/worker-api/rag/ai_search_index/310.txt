@@ -1,0 +1,18 @@
+path: quickstarts/microsoft.operationsmanagement/azure-sentinel
+---
+description: Enable Microsoft Sentinel, a scalable, cloud-native, security information event management (SIEM) and security orchestration automated response (SOAR) solution.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: azure-sentinel
+languages:
+- json
+- bicep
+---
+# Enable Microsoft Sentinel
+
+Enable Azure Sentinel, a scalable, cloud-native, security information event management (SIEM) and security orchestration automated response (SOAR) solution.
+
+`Tags: Microsoft Azure Sentinel, security information event management, SIEM, security orchestration automated response, SOAR, Microsoft.OperationalInsights/workspaces, Microsoft.OperationsManagement/solutions`
+

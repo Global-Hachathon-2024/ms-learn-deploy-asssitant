@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.insights/log-analytics-with-datasources-solutions
+---
+description: Deploys a Log Analytics workspace with specified solutions and data sources
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: log-analytics-with-datasources-solutions
+languages:
+- json
+- bicep
+---
+# Log Analytics workspace with solutions and data sources
+
+This module will deploy a Log Analytics Workspace with solutions, data sources and linked to an automation account.
+
+`Tags: Microsoft.OperationalInsights/workspaces, Microsoft.OperationsManagement/solutions, Microsoft.OperationalInsights/workspaces/linkedServices, Microsoft.OperationalInsights/workspaces/dataSources, Microsoft.Authorization/locks, Microsoft.Insights/diagnosticSettings`

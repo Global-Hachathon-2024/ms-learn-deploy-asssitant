@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.datafactory/data-factory-v2-create
+---
+description: This template creates an empty data factory
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: data-factory-v2-create
+languages:
+- json
+- bicep
+---
+# Create an empty data factory
+
+When you deploy this Azure Resource Manager template, an empty data factory of version 2 is created.
+
+`Tags: Microsoft.DataFactory/factories, SystemAssigned`

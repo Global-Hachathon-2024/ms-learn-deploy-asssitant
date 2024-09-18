@@ -1,0 +1,16 @@
+path: quickstarts/microsoft.healthcareapis/fhir-import
+---
+description: This template provisions FHIR service to enable $import for initial data loading
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: fhir-import
+languages:
+- bicep
+- json
+---
+# Configure FHIR service to enable $import
+
+This template will allow you to change the [$import operation mode](https://docs.microsoft.com/azure/healthcare-apis/fhir/import-data) on a FHIR service inside a Azure Health Data Services workspace. You can select between "Disabled", "Initial", or "Incremental" import.
+`Tags: `

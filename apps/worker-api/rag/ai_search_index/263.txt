@@ -1,0 +1,16 @@
+path: quickstarts/microsoft.network/azurefirewall-client-server-sandbox
+---
+description: This template creates a virtual network with 2 subnets (server subnet and AzureFirewall subnet), A server VM, a client VM, a public IP address for each VM, and a route table to send traffic between VMs through the firewall.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: azurefirewall-client-server-sandbox
+languages:
+- bicep
+- json
+---
+# Create sandbox of Azure Firewall, client VM, and server VM
+
+Learn more at https://docs.microsoft.com/azure/firewall.
+`Tags: `

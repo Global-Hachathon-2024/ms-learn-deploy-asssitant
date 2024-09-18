@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.network/networkwatcher-create
+---
+description: This template creates a Network Watcher resource.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: networkwatcher-create
+languages:
+- json
+- bicep
+---
+# Create a Network Watcher
+
+This module will create network watcher.
+
+You can optionally configure network watcher with a delete lock.
+
+`Tags: bicep, networkwatcher, network, Microsoft.Network/networkWatchers, Microsoft.Authorization/locks`

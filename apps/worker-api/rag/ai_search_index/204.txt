@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.insights/insights-alertrules-application-insights
+---
+description: This template allows you to deploy Application Insight and create alert in it
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: insights-alertrules-application-insights
+languages:
+- bicep
+- json
+---
+# Deploy Application Insight and create alert in it
+
+This template allows you to deploy Application Insight and create alert in it.
+
+`Tags: Microsoft.OperationalInsights/workspaces, Microsoft.Insights/components, Microsoft.Insights/metricAlerts, microsoft.insights/actionGroups`

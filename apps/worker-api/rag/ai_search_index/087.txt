@@ -1,0 +1,18 @@
+path: quickstarts/microsoft.compute/vm-msi-storage
+---
+description: This template deploys a linux VM with a system assigned managed identity that has access to a storage account in a different resource group.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: vm-msi-storage
+languages:
+- bicep
+- json
+---
+# Linux VM with MSI Accessing Storage
+
+This template deploys a **Linux VM Ubuntu** with a system assigned MSI that has a role assignment to a storage account in a different resource group.
+
+`Tags: virtual machine, Linux, Ubuntu Server, msi, storage, Microsoft.Network/virtualNetworks, Microsoft.Network/publicIpAddresses, Microsoft.Network/networkSecurityGroups, Microsoft.Network/networkInterfaces, Microsoft.Compute/virtualMachines, SystemAssigned, Microsoft.Resources/deployments, Microsoft.Storage/storageAccounts/providers/roleAssignments, Microsoft.Storage/storageAccounts`
+

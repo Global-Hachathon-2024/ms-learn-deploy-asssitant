@@ -1,0 +1,23 @@
+path: quickstarts/microsoft.resources/deployment-script-azcli-inputs-outputs
+---
+description: This template demonstrates best practices for passing and reading complex inputs, outputs and logs to an Az CLI Deployment Script
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: deployment-script-azcli-inputs-outputs
+languages:
+- bicep
+- json
+---
+# Create a Deployment Script with complex inputs & outputs
+
+## Sample overview
+
+This template demonstrates best practices for passing and reading complex inputs, outputs and logs to an Az CLI Deployment Script.
+
+## Deployment steps
+
+You can click the "deploy to Azure" button at the beginning of this document or follow the instructions for command line deployment using the scripts in the root of this repo.
+
+`Tags: Microsoft.Resources/deploymentScripts`

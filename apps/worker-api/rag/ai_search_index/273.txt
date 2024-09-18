@@ -1,0 +1,34 @@
+path: quickstarts/microsoft.network/expressroute-private-peering-vnet
+---
+description: This template configure ExpressRoute Microsoft peering, deploy an Azure VNet with Expressroute gateway and link the VNet to the ExpressRoute circuit
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: expressroute-private-peering-vnet
+languages:
+- bicep
+- json
+---
+# ExpressRoute circuit with private peering and Azure VNet
+
+To learn more about how to deploy the template, see the [quickstart](https://docs.microsoft.com/azure/expressroute/quickstart-create-expressroute-vnet-template) article.
+
+This template makes the following actions:
+
+- Create an ExpressRoute circuit.
+- Configure private peering on the ExpressRoute circuit.
+- Deploy a virtual network with two subnets. A subnet to connect Azure VMs and a gateway subnet to host an ExpressRoute gateway.
+- Deploy an ExpressRoute gateway in the gateway subnet.
+- Create and apply a network security group (NSG) to the Azure VMs subnet.
+
+## Note
+
+The deployment leaves the ExpressRoute circuit with `circuitProvisioningState` property in `Enabled` and `serviceProviderProvisioningState` property in `NotProvisioned`. After running the template, you have to work with your ExpressRoute provider to complete the provisioning process of ExpressRoute circuit. In case of ExpressRoute Direct port pair, follow the steps shown in the [article](https://docs.microsoft.com/azure/expressroute/expressroute-howto-erdirect).
+You can create a connection, to link the ExpressRoute circuit to the ExpressRoute gateway, only when the `serviceProviderProvisioningState` will be in `Provisioned` state.
+
+```
+tags: ExpressRoute, private peering, VNet, ARM template
+```
+
+`Tags: Microsoft.Network/expressRouteCircuits, Microsoft.Network/expressRouteCircuits/peerings, Microsoft.Network/networkSecurityGroups, Microsoft.Network/virtualNetworks, Microsoft.Network/publicIPAddresses, Microsoft.Network/virtualNetworkGateways`

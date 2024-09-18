@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.network/vnet-two-subnets
+---
+description: This template allows you to create a Virtual Network with two subnets.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: vnet-two-subnets
+languages:
+- json
+- bicep
+---
+# Create a Virtual Network with two Subnets
+
+This template allows you to create a Virtual Network with two subnets.
+
+`Tags: Microsoft.Network/virtualNetworks`

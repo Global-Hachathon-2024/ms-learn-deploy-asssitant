@@ -1,0 +1,12 @@
+.env
+ignore/
+__pycache__/
+venv/
+deploy/
+message.json
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico

@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.containerinstance/aci-linuxcontainer-public-ip
+---
+description: Deploy a single Linux container accessible via a public IP using Azure Container Instances.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: aci-linuxcontainer-public-ip
+languages:
+- bicep
+- json
+---
+# Azure Container Instances - Linux container with public IP
+
+This template demonstrates a use case for [Azure Container Instances](https://docs.microsoft.com/azure/container-instances/). To learn more about how to deploy the template, see the [quickstart](https://docs.microsoft.com/azure/container-instances/container-instances-quickstart-template) article.
+
+`Tags: Microsoft.ContainerInstance/containerGroups, Public`

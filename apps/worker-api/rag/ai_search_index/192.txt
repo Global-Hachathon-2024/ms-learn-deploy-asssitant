@@ -1,0 +1,21 @@
+path: quickstarts/microsoft.eventhub/eventhubs-create-cluster-namespace
+---
+description: This template enables you to create EventHubs Cluster and a namespace in cluster
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: eventhubs-create-cluster-namespace
+languages:
+- json
+- bicep
+---
+# Creates Event Hub cluster & namesapce in cluster
+
+For information about using this template, see [Quickstart: Create an event hub cluster using Azure Resource Manager template](http://azure.microsoft.com/documentation/articles/event-hubs-resource-manager-namespace-event-hub/)
+
+For the template reference, see [Microsoft.EventHub resource types](https://docs.microsoft.com/azure/templates/microsoft.eventhub/allversions).
+
+For additional event hub quickstart templates, see [Azure Quickstart templates](https://azure.microsoft.com/resources/templates/?resourceType=Microsoft.Eventhub&pageNumber=1&sort=Popular).
+
+`Tags: Microsoft.EventHub/clusters, Microsoft.EventHub/namespaces`

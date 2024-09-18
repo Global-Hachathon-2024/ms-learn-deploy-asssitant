@@ -1,0 +1,36 @@
+path: quickstarts/microsoft.kubernetes/aks
+---
+description: Deploy a managed cluster with Azure Container Service (AKS)
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: aks
+languages:
+- bicep
+- json
+---
+# Azure Container Service (AKS)
+
+## Deployment
+
+This template deploys an **AKS cluster**. To learn more about how to deploy the template, see the [quickstart](https://docs.microsoft.com/azure/aks/kubernetes-walkthrough-rm-template) article.
+
+For information about how to deploy an AKS cluster using Azure CLI, see the [quickstart](https://docs.microsoft.com/azure/aks/kubernetes-walkthrough) article.
+
+## Keys
+
+To use keys stored in `keyVault`, replace `"value":""` with a reference to `keyVault` in the parameters file. For example:
+
+```json
+"servicePrincipalClientSecret": {
+  "reference": {
+    "keyVault": {
+      "id": "<specify Resource ID of the Key Vault you are using>"
+    },
+    "secretName": "<specify name of the secret in the Key Vault to get the service principal password from>"
+  }
+}
+```
+
+`Tags: Microsoft.ContainerService/managedClusters, SystemAssigned`

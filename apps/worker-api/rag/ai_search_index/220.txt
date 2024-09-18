@@ -1,0 +1,27 @@
+path: quickstarts/microsoft.labservices/lab
+---
+description: Create Azure Lab Services lab.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: lab
+languages:
+- json
+- bicep
+---
+# Create Azure Lab Services lab.
+
+This template deploys a Lab for Azure Lab Services. The lab is a collection for virtual machines grouped together for groupings of users, like a class in a school.
+
+## Sample overview and deployed resources
+
+The following resources are deployed as part of the solution
+
+1. A Lab (April 2022 update)
+
+## Deployment steps
+
+You can click the "deploy to Azure" button at the beginning of this document or follow the instructions for command line deployment using the scripts in the root of this repo.
+
+`Tags: LabServices, lab, Microsoft.LabServices/labs`

@@ -1,0 +1,22 @@
+path: quickstarts/microsoft.network/azure-bastion-nsg
+---
+description: This template provisions Azure Bastion in a Virtual Network
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: azure-bastion-nsg
+languages:
+- bicep
+- json
+---
+# Azure Bastion as a Service with NSG
+
+This template will deploy Azure Bastion in a new or existing Azure Virtual Network, along with dependent resources such as the AzureBastionSubnet, Public Ip Address for Azure Bastion, and Network Security Group rules.
+
+This template deploys resources in the same Resource Group and Azure region as the Virtual Network.
+
+```
+Tags: ``bastion``
+
+`Tags: Microsoft.Network/publicIpAddresses, Microsoft.Network/networkSecurityGroups, Microsoft.Network/virtualNetworks, Microsoft.Network/virtualNetworks/subnets, Microsoft.Network/bastionHosts`

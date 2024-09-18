@@ -1,0 +1,18 @@
+path: quickstarts/microsoft.databricks/databricks-workspace-with-custom-vnet-address
+---
+description: This template allows you to create an Azure Databricks workspace with a custom virtual network address range.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: databricks-workspace-with-custom-vnet-address
+languages:
+- bicep
+- json
+---
+# Azure Databricks Workspace with custom Address Range
+
+This template allows you to create a Azure Databricks workspace with a custom virtual network address range.
+For more information, see the <a href="https://docs.microsoft.com/azure/azure-databricks/">Azure Databricks Documentation.
+
+`Tags: Microsoft.Databricks/workspaces`

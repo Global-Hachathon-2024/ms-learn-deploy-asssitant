@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.datashare/data-share-share
+---
+description: This template creates a data share
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: data-share-share
+languages:
+- json
+- bicep
+---
+# Create a data share
+
+When you deploy this Azure Resource Manager template, a data share provider share is created.  For more details you can refer to this link: https://docs.microsoft.com/azure/data-share/concepts-roles-permissions#roles-and-requirements
+
+`Tags: data share, share, Microsoft.DataShare/accounts, SystemAssigned, Microsoft.DataShare/accounts/shares`
+	```
+

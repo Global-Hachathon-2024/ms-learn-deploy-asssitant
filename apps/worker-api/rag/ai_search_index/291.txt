@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.network/pip-with-ddos-ip-protection
+---
+description: This template creates a Public IP that is protected with DDoS IP Protection
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: pip-with-ddos-ip-protection
+languages:
+- json
+- bicep
+---
+# Create Public IP with DDoS IP Protection
+
+This template creates a Public IP that is protected by DDoS IP Protection
+
+`Tags: Microsoft.Network/ddosProtectionPlans, Microsoft.Network/publicIPAddresses`

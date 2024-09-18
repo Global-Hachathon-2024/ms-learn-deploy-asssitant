@@ -1,0 +1,28 @@
+path: quickstarts/microsoft.storagepool/diskpool-create-entry-level
+---
+description: This template deploys a Disk Pool with 1 1TB existing Premium Disk in an existing subnet.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: diskpool-create-entry-level
+languages:
+- json
+- bicep
+---
+# Deploy an entry level Disk Pool
+
+This template deploys a Disk Pool with an existing 1TB Premium Disk into an existing subnet.
+
+This template needs the following pre-requisites:
+- A virtual network and subnet in the same location as the Disk Pool. The subnet needs to be delegated to "Microsoft.StoragePool/diskPools".
+- 1 1TB Premium disk in the same location as the Disk Pool.
+- "Disk Pool Operator" role assignment with the "StoragePool Resource Provider" role on the disk.
+
+**Use following powershell command to get Principal ID associated with a tenant. The ID is the principal ID.
+
+```powershell
+PS C:\> Get-AzADServicePrincipal -DisplayName "StoragePool Resource Provider"
+```
+
+`Tags: Microsoft.StoragePool/diskPools, Microsoft.StoragePool/diskPools/iscsiTargets, Microsoft.Network/virtualNetworks, Microsoft.Compute/disks, Microsoft.Authorization/roleAssignments`
