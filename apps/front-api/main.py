@@ -13,10 +13,10 @@ queue_name = "job-queue"
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
 queue_client = queue_service_client.get_queue_client(queue_name)
 
-
-def convert_to_en_us_url(url):
-    converted_url = re.sub(r'(https://learn\.microsoft\.com/)([^/]+/)', r'\1en-us/', url)
-    return converted_url
+# just for health check
+@app.get("/ping")
+async def ping():
+    return "pong"
 
 @app.get("/poll_status")
 async def poll_status(url: str):
@@ -37,3 +37,7 @@ async def poll_status(url: str):
                 return {"status": "completed", "url": status["storedUrl"]}
             else:
                 return {"status": "invalid", "url": status["storedUrl"]}
+
+def convert_to_en_us_url(url):
+    converted_url = re.sub(r'(https://learn\.microsoft\.com/)([^/]+/)', r'\1en-us/', url)
+    return converted_url
