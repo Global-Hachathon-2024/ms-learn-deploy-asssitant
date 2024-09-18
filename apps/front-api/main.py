@@ -1,17 +1,15 @@
-import os, uuid, re
+import os, re
 import datetime
 
-from azure.identity import DefaultAzureCredential
-from azure.storage.queue import QueueServiceClient, QueueClient, QueueMessage, BinaryBase64DecodePolicy, BinaryBase64EncodePolicy
+from azure.storage.queue import QueueServiceClient
 from database import DatabaseClient, Result
-from fastapi import FastAPI, Request
-import asyncio
+from fastapi import FastAPI
 
 app = FastAPI()
 
 # Azure Storage の接続文字列
 connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-queue_name = "hackathon2024queue"
+queue_name = "job-queue"
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
 queue_client = queue_service_client.get_queue_client(queue_name)
 

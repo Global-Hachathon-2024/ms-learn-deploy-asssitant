@@ -6,6 +6,7 @@ import re
 from azure.data.tables import TableClient, UpdateMode
 
 REPOSITORY_URL = "https://github.com/Global-Hachathon-2024/msl-autogen-templates"
+table_name = "results"
 
 class Result:
     def __init__(self, url: str, exec_datetime: datetime.datetime):
@@ -84,7 +85,7 @@ class DatabaseClient:
         return cls._instance
     
     def _initialize(self, conn_str: str):
-        self.table_client = TableClient.from_connection_string(conn_str, table_name="testtable")
+        self.table_client = TableClient.from_connection_string(conn_str, table_name=table_name)
     
     def insert(self, result: Result):
         entity = result.to_entity()
