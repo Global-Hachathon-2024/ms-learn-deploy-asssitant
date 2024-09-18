@@ -10,6 +10,7 @@ from fastapi import FastAPI, HTTPException
 from generate import generate_bicep
 from validate import validate_bicep
 from database import DatabaseClient, Result
+from push_code import push_to_github
 
 RETRY_CNT = 2
 
@@ -60,6 +61,7 @@ async def generate_handler(url: str):
     handle_complete(url, is_valid, generated)
     handle_error(500, "Failed to generate an ARM template")
 
+# TODO: handle error and response to the client gracefully
 def handle_complete(url: str, is_valid: bool, bicep: str):
     """
     Handle the completion of generating an ARM template
@@ -70,7 +72,7 @@ def handle_complete(url: str, is_valid: bool, bicep: str):
     """
     logging.info(f"Generated ARM template for {url} successfully")
     db_client.finish(url, is_valid)
-    # TODO: save it to our GitHub repository
+    push_to_github(bicep, url)
 
 def handle_error(code, msg):
     logging.error(msg)
