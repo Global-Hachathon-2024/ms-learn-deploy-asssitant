@@ -1,10 +1,11 @@
 import sys
+from typing import Tuple
 
 import requests
 from bs4 import BeautifulSoup
 
 
-def scrape_web_content(url):
+def scrape_web_content(url: str) -> Tuple[int, str]:
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -18,7 +19,7 @@ def scrape_web_content(url):
         content_text = extract_text_with_structure(main_content)
         content_text = skip_until_first_h1(content_text)
 
-        return content_text
+        return response.status_code, content_text
 
     except requests.RequestException as e:
         print(f"Error fetching content from {url}: {e}")

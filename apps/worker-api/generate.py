@@ -3,64 +3,87 @@ import re
 from pathlib import Path
 
 from dotenv import load_dotenv
+from langchain.schema import AIMessage, HumanMessage, SystemMessage
+from langchain_community.vectorstores.azuresearch import AzureSearch
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 
-from src.azcommand import deploy_bicep
-from src.file_io import save_files
-from src.llm import BicepDeployer
-from src.urls import create_directory_from_url
-from src.web_scraper import scrape_web_content
+from utils.web_scraper import scrape_web_content
 
-load_dotenv(Path(__file__).parent / "../.env")
+class BicepDeployer:
+    def __init__(self):
+        load_dotenv(Path(__file__).parent / ".env")
+        AZURE_SEARCH_ENDPOINT = os.environ.get("AZURE_SEARCH_ENDPOINT")
+        AZURE_SEARCH_ADMIN_KEY = os.environ.get("AZURE_SEARCH_ADMIN_KEY")
+        INDEX_NAME = os.environ.get("INDEX_NAME")
+        # AZURE_OPENAI_API_KEY = os.environ.get("AOAIAZURE_OPENAI_API_KEY")
+        # AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT")
+        # OPENAI_API_VERSION = os.environ.get("OPENAI_API_VERSION")
 
-MAX_RETRIES = 3
+        if not AZURE_SEARCH_ENDPOINT or not AZURE_SEARCH_ADMIN_KEY or not INDEX_NAME:
+            raise ValueError("Please provide the Azure Search endpoint, admin key, and index name in the .env file")
+        # print(f"Using Azure OpenAI API key: {AZURE_OPENAI_API_KEY}")
+        # print(f"Using Azure OpenAI endpoint: {AZURE_OPENAI_ENDPOINT}")
+        # print(f"Using OpenAI API version: {OPENAI_API_VERSION}")
 
+        with open(Path(__file__).parent / "prompts/system.txt", "r") as f:
+            self.system_prompt = f.read()
+        self.messages = [
+            SystemMessage(content=self.system_prompt)
+        ]
+        with open(Path(__file__).parent / "prompts/user_ask.txt", "r") as f:
+            self.ask_prompt = f.read()
+        with open(Path(__file__).parent / "prompts/user_fix.txt", "r") as f:
+            self.fix_prompt = f.read()
 
-def generate_bicep(url: str) -> str:
-    """
-    Generate a Bicep file from the given URL
-    Args:
-        url (str): URL to generate a Bicep file
-    Returns:
-        str: file path of the generated Bicep file
-    """
-    directory_path = create_directory_from_url(url)
-    # print(f"Directory path: {directory_path}")
+        # https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api/172683
+        self.llm = AzureChatOpenAI(
+            azure_deployment="gpt-4o", 
+            temperature=0.2, 
+            top_p=0.1,
+        )
 
-    content = scrape_web_content(url)
-    print(content)
-    # print("==========")
+        embeddings = AzureOpenAIEmbeddings(
+            azure_deployment="text-embedding-3-large",
+            openai_api_version="2023-05-15"
+        )
+        self.vector_store = AzureSearch(
+            azure_search_endpoint=AZURE_SEARCH_ENDPOINT,
+            azure_search_key=AZURE_SEARCH_ADMIN_KEY,
+            index_name=INDEX_NAME,
+            embedding_function=embeddings.embed_query
+        )
 
-    deployer = BicepDeployer()
-    success = False
-    for i in range(1 + MAX_RETRIES):
-        if success:
-            break
+    def generate_bicep_template(self, mslearn_content):
+        similar_doc = self.vector_store.similarity_search(
+            query=mslearn_content,
+            k=1,
+            search_type="hybrid"
+        )
+        quickstart_path = similar_doc[0].page_content.split("\n")[0].replace("path: ", "")
+        print(f"Quickstart path: {quickstart_path}")
 
-        if i == 0:
-            output = deployer.generate_bicep_template(content)
-        else:
-            # print(f"==========\nRetrying... Attempt {i}")
-            output = deployer.fix_bicep_template(message)
+        with open(os.path.join(quickstart_path, "main.bicep"), "r") as f:
+            bicep_content = f.read()
+        with open(os.path.join(quickstart_path, "azuredeploy.parameters.json"), "r") as f:
+            parameters_content = f.read()
 
-        extracted_files = extract_code_blocks(output)
-        save_files(directory_path, [os.environ.get("BICEP_FILE"), os.environ.get("PARAMETERS_FILE")], extracted_files)
+        user_prompt = self.ask_prompt.replace("MSLEARN_CONTENT", mslearn_content) \
+                                     .replace("BICEP_CONTENT", bicep_content) \
+                                     .replace("PARAMETERS_CONTENT", parameters_content)
+        self.messages.append(HumanMessage(content=user_prompt))
 
-        success, message = deploy_bicep(directory_path)
-        # print(message)
+        res = self.llm.invoke(self.messages)
+        self.messages.append(AIMessage(content=res.content))
+        return res.content
 
-    if success:
-        return True, directory_path
+    def fix_bicep_template(self, error_message):
+        # If the error_message contains a URL, retrieve the content of that page and add it to the error_message.
+        urls = re.findall(r"https?://[^\s]+", error_message)
+        for url in urls:
+            content = scrape_web_content(url)
+            error_message += f"\n\n```{url}\n{content}\n```"
 
-    return False, directory_path
-
-
-def extract_code_blocks(text):
-    code_block_pattern = re.compile(r'```(azuredeploy\.bicep|azuredeploy\.parameters\.json)\n(.*?)\n```', re.DOTALL)
-    matches = code_block_pattern.findall(text)
-
-    extracted_files = {}
-    for filename, code in matches:
-        # Duplicate filenames may occur but will be overwritten
-        extracted_files[filename] = code
-
-    return extracted_files
+        self.messages.append(HumanMessage(content=self.fix_prompt.replace("ERROR_MESSAGE", error_message)))
+        res = self.llm.invoke(self.messages)
+        self.messages.append(AIMessage(content=res.content))
+        return res.content

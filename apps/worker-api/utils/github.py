@@ -1,22 +1,23 @@
 import os
 import re
+from pathlib import Path
 
 from github import Github, Auth
 
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(Path(__file__).parent / "../.env")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 repo_owner = 'Global-Hachathon-2024'
 repo_name = 'msl-autogen-templates'
 
-def push_to_github(bicep: str, url: str, **kwargs) -> None:
+def push_to_github(url: str, bicep: str, params: str) -> None:
     """
     Push the given bicep file to the GitHub repository
     Args:
+        url (str): MS Learn URL for Quick Start
         bicep (str): path to the bicep file
-        url (str): URL to generate a stored path
-        params (str): path to the parameters.json file
+        params (str): path to the main.parameters.json file
     """
     # TODO: commonize the code to push a file to the GitHub repository
     if not bicep.endswith('.bicep'):
@@ -24,6 +25,7 @@ def push_to_github(bicep: str, url: str, **kwargs) -> None:
     if not os.path.exists(bicep):
         raise FileNotFoundError('The file does not exist')
 
+    print(f'GITHUB_TOKEN: {GITHUB_TOKEN}')
     auth = Auth.Token(GITHUB_TOKEN)
     g = Github(auth=auth)
     repo = g.get_user(repo_owner).get_repo(repo_name)
@@ -33,12 +35,11 @@ def push_to_github(bicep: str, url: str, **kwargs) -> None:
     
     stored_path = make_stored_path(url)
     full_path = f'templates/{stored_path}/main.bicep'
-    commit_message = f'generate a bicep automatically for {url}'
+    commit_message = f'generate a main.bicep automatically for {url}'
     # TODO: if the file already exists, update the file
     repo.create_file(full_path, commit_message, content)
 
-    params = kwargs.get('params')
-    if params:
+    if params != None:
         if not params.endswith('.json'):
             raise ValueError('Invalid file extension. Please provide a valid json file')
         if not os.path.exists(params):
@@ -46,8 +47,9 @@ def push_to_github(bicep: str, url: str, **kwargs) -> None:
 
         with open(params, 'r') as file:
             content = file.read()
-        full_path = f'templates/{stored_path}/parameters.json'
-        commit_message = f'generate a parameters.json automatically for {url}'
+        full_path = f'templates/{stored_path}/main.parameters.json'
+        commit_message = f'generate a main.parameters.json automatically for {url}'
+        # TODO: if the file already exists, update the file
         repo.create_file(full_path, commit_message, content)
 
     g.close()

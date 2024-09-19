@@ -22,14 +22,14 @@ class Result:
         return self.__str__()
 
     @classmethod
-    def from_entity(cls, entity):
-        return cls(
-            category=entity['PartitionKey'],
-            url_hash=entity['RowKey'],
-            in_progress=entity['inProgress'],
-            is_valid=entity['isValid'],
-            stored_url=entity['storedUrl'],
-        )
+    def from_entity(cls, url, entity):
+        result = cls(url)
+        result.category = entity['PartitionKey']
+        result.url_hash = entity['RowKey']
+        result.in_progress = entity['inProgress']
+        result.is_valid = entity['isValid']
+        result.stored_url = entity['storedUrl']
+        return result
 
     def to_entity(self)->dict:
         return {
@@ -64,7 +64,7 @@ class DatabaseClient:
         url_hash = hashlib.sha256(url.encode()).hexdigest()
         category= parse_get_category(url)
         entity = self.table_client.get_entity(partition_key=category, row_key=url_hash)
-        return Result.from_entity(entity)
+        return Result.from_entity(url, entity)
 
     def finish(self, url: str, is_valid: bool):
         """
@@ -117,9 +117,9 @@ def make_stored_url(url: str) -> str:
         if '?tabs=' in last_path:
             repos_path, params = last_path.split('?tabs=')
             replaced_params = params.replace(',', '+')
-            return f"{REPOSITORY_URL}/{repos_path}+{replaced_params}.json"
+            return f"{REPOSITORY_URL}/{repos_path}+{replaced_params}/main.json"
         else:
             repos_path = last_path
-            return f"{REPOSITORY_URL}/{repos_path}.json"
+            return f"{REPOSITORY_URL}/{repos_path}/main.json"
     else:
         raise ValueError(f"Invalid URL: {url}")

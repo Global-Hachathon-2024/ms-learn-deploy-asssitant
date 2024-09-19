@@ -5,10 +5,10 @@ MSLEARN_CONTENT
 
 Refer to the successfully deployed example files provided below for guidance.
 =====
-```azuredeploy.bicep
+```main.bicep
 BICEP
 ```
 
-```azuredeploy.parameters.json
+```main.parameters.json
 PARAMETERS_JSON
 ```

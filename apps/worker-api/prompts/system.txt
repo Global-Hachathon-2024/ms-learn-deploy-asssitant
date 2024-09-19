@@ -10,12 +10,12 @@
     This can be achieved using constructs like `var functionAppName = 'func-${uniqueString(resourceGroup().id)}'`, not like `param functionAppName string = 'func-${uniqueString(resourceGroup().id)}'`.
 4. Deployment Command:
     Ensure that the files can be deployed using the following command:
-    `az deployment group create --resource-group quickstart --template-file azuredeploy.bicep --parameters azuredeploy.parameters.json`
+    `az deployment group create --resource-group quickstart --template-file main.bicep --parameters main.parameters.json`
 5. Output Format:
     Enclose the output Bicep file and parameters.json file in code blocks like:
-    ```azuredeploy.bicep
+    ```main.bicep
     <content>
     ```
-    ```azuredeploy.parameters.json
+    ```main.parameters.json
     <content>
     ```

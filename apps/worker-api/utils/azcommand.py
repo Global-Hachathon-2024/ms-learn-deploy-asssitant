@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent / "../.env")
 
-
 def deploy_bicep(directory_path):
     command = [
         "az",
