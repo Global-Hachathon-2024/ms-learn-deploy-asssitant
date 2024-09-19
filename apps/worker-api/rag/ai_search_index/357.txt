@@ -1,0 +1,29 @@
+path: quickstarts/microsoft.web/app-function
+---
+description: This template deploy an empty Function App and a hosting plan.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: app-function
+languages:
+- bicep
+- json
+---
+# Function App
+
+This template deploys an empty **Function App**. Azure Functions is a serverless compute service that lets you run event-triggered code without having to explicitly provision or manage infrastructure.
+With a **Function App** you also deploy a Web Hosting Plan. The Web Plan is charged by Consumption. For more information about Hosting Plans click [here!](https://docs.microsoft.com/azure/azure-functions/functions-scale)
+
+If you are new to Function Apps, see:
+
+- [Azure Functions](https://azure.microsoft.com/services/functions/).
+- [Azure Function Documentation](https://docs.microsoft.com/azure/azure-functions/)
+- [Template reference](https://docs.microsoft.com/azure/templates/microsoft.compute/allversions)
+
+If you are new to template deployment, see:
+
+[Azure Resource Manager documentation](https://docs.microsoft.com/azure/azure-resource-manager/)
+
+`Tags: Azure4Student, FunctionApp, Beginner, Microsoft.Web/sites, Microsoft.Web/serverfarms, Microsoft.Storage/storageAccounts`
+

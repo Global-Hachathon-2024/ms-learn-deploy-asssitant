@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.compute/vm-copy-managed-disks
+---
+description: This template will create N number of VM's with managed disks, public IPs and network interfaces. It will create the VMs in a single Availability Set. They will be provisioned in a Virtual Network which will also be created as part of the deployment 
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: vm-copy-managed-disks
+languages:
+- json
+- bicep
+---
+# Multi VM Template with Managed Disk 
+
+This template will provision N number of virtual machines with your choice in a single VNET. Every VM will be provisioned with a Network Interface and a Public IP resource. All the VMs will be provisioned in a single Availability Set. A single storage account will be provisioned to store the diagnostic information.
+If you provision 3 VM’s with this template, your resources will look like below in the resource group.
+
+`Tags: Managed Disks, Azure VMs, Copy Index, Microsoft.Network/networkSecurityGroups, Microsoft.Network/virtualNetworks, Microsoft.Storage/storageAccounts, Microsoft.Compute/availabilitySets, Microsoft.Compute/virtualMachines, Microsoft.Network/networkInterfaces, Microsoft.Network/publicIPAddresses`
+

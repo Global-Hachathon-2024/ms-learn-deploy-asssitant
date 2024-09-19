@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.web/app-service-regional-vnet-integration
+---
+description: This template allows you to deploy an app service plan and a basic Windows web app, with regional VNet integration enabled to a newly created virtual network
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: app-service-regional-vnet-integration
+languages:
+- bicep
+- json
+---
+# Deploy an app service with regional VNet integration
+
+This template allows you to deploy an app service plan and a basic Windows web app, with [regional VNet integration](https://docs.microsoft.com/azure/app-service/web-sites-integrate-with-vnet#regional-vnet-integration) enabled to a newly created virtual network.
+
+`Tags: Microsoft.Web/serverfarms, Microsoft.Network/virtualNetworks, Microsoft.Web/sites`

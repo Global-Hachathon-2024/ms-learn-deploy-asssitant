@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.network/private-endpoint
+---
+description: This template allows you to create Priavate Endpoint resource within the same or cross-tenant environment and add dns zone configuration.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: private-endpoint
+languages:
+- bicep
+- json
+---
+# Creates a Cross-tenant Private Endpoint resource
+
+This template allows you to create Priavate Endpoint resource within the same or cross-tenant environment and add dns zone configuration. All the resources are created in the same region as the resource group by default. Modify parameters file to change default values. This is tested with an Azure key vault but can be used for any Azure service that supports private endpoint.
+
+[Private Endpoint Service](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)
+
+`Tags: network, virtual network, subnet, key vault, private endpoint, Microsoft.KeyVault/vaults, Microsoft.Network/virtualNetworks, Microsoft.Network/virtualNetworks/subnets, Microsoft.Network/privateEndpoints`

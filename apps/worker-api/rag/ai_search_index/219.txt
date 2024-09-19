@@ -1,0 +1,21 @@
+path: quickstarts/microsoft.kusto/kusto-event-hub
+---
+description: Deploy Azure Data Explorer db with Event Hub connection.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: kusto-event-hub
+languages:
+- json
+- bicep
+---
+# Deploy Azure Data Explorer db with Event Hub connection.
+
+https://azurequickstartsservice.blob.core.windows.net/badges/quickstarts/microsoft.kusto/kusto-event-hub/BicepVersion.svg
+
+This template allows you deploy a cluster with System Assigned Identity, a database, an Azure Event Hub and a data connection between the Event Hub and the database (using the system assigned identity).
+
+This template was authored in bicep (see [bicep template](main.bicep)), referring a [KQL script](script.kql) and then transpiled into [JSON template](azuredeploy.json).
+
+`Tags: Microsoft.EventHub/namespaces/eventhubs/consumergroups, Microsoft.EventHub/namespaces/eventhubs, Microsoft.Kusto/clusters/databases/scripts, Microsoft.Kusto/clusters/databases/dataConnections, Microsoft.Kusto/clusters/databases, Microsoft.EventHub/namespaces, Microsoft.Kusto/clusters, SystemAssigned, Microsoft.Authorization/roleAssignments`

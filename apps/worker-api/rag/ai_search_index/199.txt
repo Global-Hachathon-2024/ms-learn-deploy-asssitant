@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.hdinsight/hdinsight-spark-linux
+---
+description: This template allows you to create a Spark cluster in Azure HDInsight. 
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: hdinsight-spark-linux
+languages:
+- json
+- bicep
+---
+# Deploy a Spark cluster in Azure HDInsight
+
+This template allows you to a Spark cluster in HDInsight with the dependent Azure storage account. To learn more about how to deploy the template, see the [quickstart](https://docs.microsoft.com/azure/hdinsight/spark/apache-spark-jupyter-spark-sql) article.
+
+`Tags: Microsoft.Storage/storageAccounts, Microsoft.HDInsight/clusters`

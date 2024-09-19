@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.storage/storage-static-website
+---
+description: Deploys a static website with a backing storage account
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: storage-static-website
+languages:
+- json
+- bicep
+---
+# Deploys a static website
+
+This quickstart creates a storage account and enables the static website feature.
+
+`Tags: Microsoft.Storage/storageAccounts, Microsoft.ManagedIdentity/userAssignedIdentities, Microsoft.Authorization/roleAssignments, Microsoft.Resources/deploymentScripts, UserAssigned`

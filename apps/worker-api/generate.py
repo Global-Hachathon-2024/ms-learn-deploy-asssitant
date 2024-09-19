@@ -1,37 +1,89 @@
-# TODO: make a prompt texts 
-# TODO: request AOAI to generate a ARM template
-def generate_bicep(url: str) -> str:
-    """
-    Generate a Bicep file from the given URL
-    Args:
-        url (str): URL to generate a Bicep file
-    Returns:
-        str: file path of the generated Bicep file
-    """
-    return """
-    {
-        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-        "contentVersion": "1.0.0.0",
-        "resources": [
-            {
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2021-04-01",
-            "name": "[parameters('storageAccountName')]",
-            "location": "[resourceGroup().location]",
-            "sku": {
-                "name": "Standard_LRS"
-            },
-            "kind": "StorageV2",
-            "properties": {}
-            }
-        ],
-        "parameters": {
-            "storageAccountName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the storage account"
-            }
-            }
-        }
-    }
-    """
+import os
+import re
+from pathlib import Path
+
+from dotenv import load_dotenv
+from langchain.schema import AIMessage, HumanMessage, SystemMessage
+from langchain_community.vectorstores.azuresearch import AzureSearch
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
+
+from utils.web_scraper import scrape_web_content
+
+class BicepDeployer:
+    def __init__(self):
+        load_dotenv(Path(__file__).parent / ".env")
+        AZURE_SEARCH_ENDPOINT = os.environ.get("AZURE_SEARCH_ENDPOINT")
+        AZURE_SEARCH_ADMIN_KEY = os.environ.get("AZURE_SEARCH_ADMIN_KEY")
+        INDEX_NAME = os.environ.get("INDEX_NAME")
+        # AZURE_OPENAI_API_KEY = os.environ.get("AOAIAZURE_OPENAI_API_KEY")
+        # AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT")
+        # OPENAI_API_VERSION = os.environ.get("OPENAI_API_VERSION")
+
+        if not AZURE_SEARCH_ENDPOINT or not AZURE_SEARCH_ADMIN_KEY or not INDEX_NAME:
+            raise ValueError("Please provide the Azure Search endpoint, admin key, and index name in the .env file")
+        # print(f"Using Azure OpenAI API key: {AZURE_OPENAI_API_KEY}")
+        # print(f"Using Azure OpenAI endpoint: {AZURE_OPENAI_ENDPOINT}")
+        # print(f"Using OpenAI API version: {OPENAI_API_VERSION}")
+
+        with open(Path(__file__).parent / "prompts/system.txt", "r") as f:
+            self.system_prompt = f.read()
+        self.messages = [
+            SystemMessage(content=self.system_prompt)
+        ]
+        with open(Path(__file__).parent / "prompts/user_ask.txt", "r") as f:
+            self.ask_prompt = f.read()
+        with open(Path(__file__).parent / "prompts/user_fix.txt", "r") as f:
+            self.fix_prompt = f.read()
+
+        # https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api/172683
+        self.llm = AzureChatOpenAI(
+            azure_deployment="gpt-4o", 
+            temperature=0.2, 
+            top_p=0.1,
+        )
+
+        embeddings = AzureOpenAIEmbeddings(
+            azure_deployment="text-embedding-3-large",
+            openai_api_version="2023-05-15"
+        )
+        self.vector_store = AzureSearch(
+            azure_search_endpoint=AZURE_SEARCH_ENDPOINT,
+            azure_search_key=AZURE_SEARCH_ADMIN_KEY,
+            index_name=INDEX_NAME,
+            embedding_function=embeddings.embed_query
+        )
+
+    def generate_bicep_template(self, mslearn_content):
+        similar_doc = self.vector_store.similarity_search(
+            query=mslearn_content,
+            k=1,
+            search_type="hybrid"
+        )
+        quickstart_path = similar_doc[0].page_content.split("\n")[0].replace("path: ", "")
+        print(f"Quickstart path: {quickstart_path}")
+
+        with open(os.path.join(quickstart_path, "main.bicep"), "r") as f:
+            bicep_content = f.read()
+        with open(os.path.join(quickstart_path, "azuredeploy.parameters.json"), "r") as f:
+            parameters_content = f.read()
+
+        user_prompt = self.ask_prompt.replace("MSLEARN_CONTENT", mslearn_content) \
+                                     .replace("BICEP_CONTENT", bicep_content) \
+                                     .replace("PARAMETERS_CONTENT", parameters_content)
+        self.messages.append(HumanMessage(content=user_prompt))
+
+        res = self.llm.invoke(self.messages)
+        self.messages.append(AIMessage(content=res.content))
+        return res.content
+
+    def fix_bicep_template(self, error_message):
+        # If the error_message contains a URL, retrieve the content of that page and add it to the error_message.
+        urls = re.findall(r"https?://[^\s]+", error_message)
+        for url in urls:
+            content = scrape_web_content(url)
+            error_message += f"\n\n```{url}\n{content}\n```"
+
+        self.messages.append(HumanMessage(content=self.fix_prompt.replace("ERROR_MESSAGE", error_message)))
+        res = self.llm.invoke(self.messages)
+        self.messages.append(AIMessage(content=res.content))
+        return res.content

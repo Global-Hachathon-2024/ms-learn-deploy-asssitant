@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.cache/redis-premium-vnet
+---
+description: This template shows how to deploy a premium Azure Redis Cache instance into an existing Virtual Network
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: redis-premium-vnet
+languages:
+- json
+- bicep
+---
+# Create Premium Redis Cache deployed into a Virtual Network
+
+Create a premium Redis Cache inside a Virtual Network by using a template. Azure Virtual Network (VNet) deployments provide enhanced security and isolation for your Azure Redis Cache, as well as subnets, access control policies, and other features to further restrict access to Azure Redis Cache with a Virtual Network.
+
+For information about using this template, see [How to configure Virtual Network Support for a Premium Azure Redis Cache](https://azure.microsoft.com/documentation/articles/cache-how-to-premium-vnet/).
+
+`Tags: Microsoft.Cache/redis`

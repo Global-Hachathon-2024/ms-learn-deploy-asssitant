@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.network/vnet-create-with-diagnostic-logs
+---
+description: This template creates a Virtual Network with diagnostic logs and allows optional features to be added to each subnet
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: vnet-create-with-diagnostic-logs
+languages:
+- json
+- bicep
+---
+# Virtual Network with diagnostic logs
+
+This module will create a virtual network.
+
+You can optionally configure subnets with delegation, service endpoints, private endpoints, NSG, route table and enable diagnostics logs and a delete lock.
+
+`Tags: bicep, virtualnetwork, vnet, network, Microsoft.Network/virtualNetworks, Microsoft.Insights/diagnosticSettings, Microsoft.Authorization/locks`

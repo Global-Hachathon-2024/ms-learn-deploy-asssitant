@@ -1,0 +1,32 @@
+path: quickstarts/microsoft.compute/customscript-extension-public-storage-on-ubuntu
+---
+description: This template creates a Ubuntu VM and installs the CustomScript extension
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: customscript-extension-public-storage-on-ubuntu
+languages:
+- bicep
+- json
+---
+# Custom Script extension on a Ubuntu VM
+
+[CustomScript Extension](https://github.com/Azure/azure-linux-extensions/tree/master/CustomScript) allows the owner of the Azure Virtual Machines to run customized scripts in the VM.
+
+This template shows a simple example to run scripts which are stored in public storage(e.g. GitHub).
+
+## Deploy
+
+1. Using Azure CLI
+
+  https://azure.microsoft.com/documentation/articles/xplat-cli-azure-resource-manager/
+
+2. Using Powershell
+
+  https://azure.microsoft.com/documentation/articles/powershell-azure-resource-manager/
+
+3. Using Azure Portal
+  Click the "Deploy to Azure" button.
+
+`Tags: Microsoft.Network/publicIPAddresses, Microsoft.Network/virtualNetworks, Microsoft.Network/networkInterfaces, Microsoft.Compute/virtualMachines, Microsoft.Compute/virtualMachines/extensions, CustomScript`

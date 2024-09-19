@@ -1,0 +1,19 @@
+path: quickstarts/microsoft.storage/storage-blob-encryption-with-cmk
+---
+description: This template deploys a Storage Account with a customer-managed key for encryption that's generated and placed inside a Key Vault.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: storage-blob-encryption-with-cmk
+languages:
+- json
+- bicep
+---
+# Azure Storage Account Encryption with customer-managed key
+
+## Sample overview and deployed resources
+
+This template deploys a Storage Account with a customer-managed key for encryption that's generated and placed inside a Key Vault.
+
+`Tags: bicep, key vault, storage account, customer managed, customer managed key, cmk, encryption, Microsoft.KeyVault/vaults, Microsoft.KeyVault/vaults/keys, Microsoft.Storage/storageAccounts, UserAssigned`

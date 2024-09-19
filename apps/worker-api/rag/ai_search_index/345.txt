@@ -1,0 +1,21 @@
+path: quickstarts/microsoft.storage/storage-account-service-encryption-create
+---
+description: This template creates a Storage Account with Storage Service Encryption for Data at Rest
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: storage-account-service-encryption-create
+languages:
+- json
+- bicep
+---
+# Create a Storage Account with SSE
+
+Create a Storage Account with Storage Service Encryption -
+
+This template creates a Storage account with Storage Service Encryption for Data at Rest. For more information, see here:
+
+https://docs.microsoft.com/azure/storage/storage-service-encryption
+
+`Tags: Microsoft.Storage/storageAccounts`

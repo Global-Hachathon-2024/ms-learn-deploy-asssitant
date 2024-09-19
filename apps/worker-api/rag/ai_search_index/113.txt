@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.containerinstance/aci-vnet
+---
+description: Deploy a container instance into an Azure virtual network.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: aci-vnet
+languages:
+- json
+- bicep
+---
+# Azure Container Instances - VNet
+
+This template demonstrates a simple use case for deploying a container instance into an Azure virtual network. (https://docs.microsoft.com/azure/container-instances/container-instances-vnet).
+
+`Tags: Microsoft.Network/virtualNetworks, Microsoft.Network/virtualNetworks/subnets, Microsoft.Network/networkProfiles, Microsoft.ContainerInstance/containerGroups`

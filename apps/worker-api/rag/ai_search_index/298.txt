@@ -1,0 +1,39 @@
+path: quickstarts/microsoft.network/site-to-site-vpn-fqdn-bgp
+---
+description: This template allows you to deploy a site-to-site VPN between two VNets with VPN Gateways in configuration active-active with BGP. Each Azure VPN Gateway resolves the FQDN of the remote peers to determine the public IP of the remote VPN Gateway. Template runs as expected in Azure regions with availability zones.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: site-to-site-vpn-fqdn-bgp
+languages:
+- bicep
+- json
+---
+# Site-to-Site VPN with active-active VPN Gateways with BGP
+
+This template creates two Site-to-Site VPN tunnels between two Azure Virtual Networks. In each Azure VNet is deployed an Azure VPN Gateway in configuration active-active in availability zones. To establish the IPsec/IKE VPN tunnels, each Azure VPN Gateway resolves the FQDN of the remote peers to determine the public IP of the remote VPN Gateway.
+
+The Azure VPN Gateway advertises through BGP the Azure Virtual network address space to the remote peer. Two different BGP sessions are established between the two Azure VPN Gateway, with transit through different IPsec tunnels.
+
+## Network diagram
+
+### Site-to-Site IPsec tunnels between the Azure VPN gateways
+
+At the end of deployment, the two Azure VMs in the two VNets,vm1 and vm2, can communicate through private IPs.
+
+## Note1
+
+- the template works as expected only in **Azure regions with availability zones**.
+- VPN gateway supports two generations: **Generation1** and **Generation2**. The **VpnGw1AZ** gateway SKU is only available in **Generation1**.
+- the IPsec / IKE policy is set to default
+
+## Note2
+
+Before running the template deployment, set your custom values in the parameters file:
+
+- **sharedKey**: pre-shared key used for Site-to-Site VPN tunnels
+- **adminUsername**: administrator username of the Azure VMs
+- **adminPassword**: administrator password of the Azure VMs
+
+`Tags: Azure VPN, site-to-site, Microsoft.Network/networkSecurityGroups, Microsoft.Network/virtualNetworks, Microsoft.Network/publicIPAddresses, Microsoft.Network/virtualNetworkGateways, Microsoft.Network/localNetworkGateways, Microsoft.Network/connections, Microsoft.Network/networkInterfaces, Microsoft.Compute/virtualMachines`

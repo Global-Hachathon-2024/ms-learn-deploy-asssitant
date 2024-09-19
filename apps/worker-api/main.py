@@ -1,83 +1,94 @@
-# main.py
 import os
 import logging
-import datetime
 
-import requests
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 
-from generate import generate_bicep
-from validate import validate_bicep
-from database import DatabaseClient, Result
-from push_code import push_to_github
-
-RETRY_CNT = 2
+from generate import BicepDeployer
+from database import DatabaseClient
+from utils.parse import extract_code_blocks
+from utils.azcommand import deploy_bicep
+from utils.filesys import save_files, create_directory_from_url
+from utils.github import push_to_github
+from utils.web_scraper import scrape_web_content
 
 load_dotenv()
+BICEP_FILE = os.environ.get("BICEP_FILE")
+PARAMETERS_FILE = os.environ.get("PARAMETERS_FILE")
+
 app = FastAPI()
 conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 db_client = DatabaseClient(conn_str)
+
+MAX_RETRIES = 3
 
 # just for health check
 @app.get("/ping")
 async def ping():
     return "pong"
 
-# generate ARM template
 @app.post("/templates")
 async def generate_handler(url: str):
+    directory_path = create_directory_from_url(url)
+    code, content = scrape_web_content(url)
+    if code != 200:
+        if code == 404:
+            msg = f"the URL not found: {url}"
+            handle_error(404, msg)
+        else:
+            msg = f"Failed to get a page from {url}"
+            handle_error(500, msg)
 
-    code, content = get_content_from_url(url)
-    if code == 200:
-        logging.info(f"Successfully get a page from {url}")
-        logging.debug(content)
-    elif code == 404:
-        msg = f"URL not found: {url}"
-        handle_error(code, msg)
+    deployer = BicepDeployer()
+    success = False
+    for i in range(1 + MAX_RETRIES):
+        if success:
+            break
+
+        if i == 0:
+            print("Generating a bicep template")
+            output = deployer.generate_bicep_template(content)
+        else:
+            print(f"Retrying to generate a bicep template: {i}")
+            output = deployer.fix_bicep_template(message)
+
+        extracted_files = extract_code_blocks(output)
+        # TODO: check if files exist in directory_path
+        save_files(directory_path, [BICEP_FILE, PARAMETERS_FILE], extracted_files)
+
+        success, message = deploy_bicep(directory_path)
+
+    if success:
+        handle_complete(url, True, directory_path)
     else:
-        msg = f"Failed to get a page from {url}"
-        handle_error(500, msg)
-    
-    generated = generate_bicep(url)
-    result = Result(url, datetime.datetime.now())
+        handle_complete(url, False, directory_path)
 
-    is_valid, err_message = validate_bicep(generated)
-    if is_valid:
-        handle_complete(url, is_valid, generated)
-        return f"ARM template for {url} generated successfully"
-    
-    logging.info(f"Generated ARM template is invalid")
-    
-    # TODO: if invalid, get an error message and retry to generate an ARM template with some references
-    for i in range(RETRY_CNT):
-        logging.info(f"try to generate an ARM template {i+2} times")
-        generated = generate_bicep(url)
-        result.exec_datetime = datetime.datetime.now()
-        is_valid, err_message = validate_bicep(generated)
-        if is_valid:
-            handle_complete(url, is_valid, generated)
-            return f"ARM template for {url} generated successfully"
-    handle_complete(url, is_valid, generated)
-    handle_error(500, "Failed to generate an ARM template")
 
 # TODO: handle error and response to the client gracefully
-def handle_complete(url: str, is_valid: bool, bicep: str):
+def handle_complete(url: str, is_valid: bool, src_dir: str):
     """
     Handle the completion of generating an ARM template
     Args:
         url (str): URL of the page
         is_valid (bool): Whether the generated template is valid or not
-        bicep (str): File path of the generated Bicep file
+        src_dir (str): Directory path of the generated bicep and parameters files
     """
     logging.info(f"Generated ARM template for {url} successfully")
     db_client.finish(url, is_valid)
-    push_to_github(bicep, url)
 
-def handle_error(code, msg):
-    logging.error(msg)
-    raise HTTPException(status_code=code, detail=msg)
+    bicep_path = f"{src_dir}/{BICEP_FILE}"
+    parameters_path = f"{src_dir}/{PARAMETERS_FILE}"
+    if not os.path.exists(bicep_path):
+        print(f"bicep file not found: {bicep_path}")
+        handle_error(500, "Failed to generate a bicep file")
+    if not os.path.exists(f"{src_dir}/{PARAMETERS_FILE}"):
+        print(f"parameters file not found: {parameters_path}")
+        push_to_github(url, bicep_path, params=None)
+    else:
+        push_to_github(url, bicep_path, params=parameters_path)
 
-def get_content_from_url(url: str) -> tuple[int, str]:
-    response = requests.get(url)
-    return response.status_code, response.text
+def handle_error(code: int, reponse_msg: str, **kwargs: dict):
+    internal_msg = kwargs.get("internal_msg")
+    if internal_msg:
+        logging.error(internal_msg)
+    raise HTTPException(status_code=code, detail=reponse_msg)

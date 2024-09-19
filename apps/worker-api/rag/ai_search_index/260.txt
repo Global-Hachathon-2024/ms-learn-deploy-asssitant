@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.network/azure-dns-new-zone
+---
+description: This template shows how to create a DNS zone within Azure DNS and how to add some record sets to it.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: azure-dns-new-zone
+languages:
+- json
+- bicep
+---
+# Azure DNS domain hosting example
+
+This is a starter template that shows how to create a DNS zone and some records using Azure DNS. To learn more about how to deploy the template, see the [quickstart](https://docs.microsoft.com/azure/dns/dns-get-started-template) article.
+
+`Tags: Microsoft.Network/dnsZones, Microsoft.Network/dnsZones/A`

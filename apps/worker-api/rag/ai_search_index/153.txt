@@ -1,0 +1,15 @@
+path: quickstarts/microsoft.dbforpostgresql/flexible-postgresql-with-aad
+---
+description: This template provides a way to deploy a Flexible server Azure database for PostgreSQL with AAD integration.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: flexible-postgresql-with-aad
+languages:
+- bicep
+- json
+---
+# Deploy Azure Database for PostgreSQL (flexible) with AAD
+
+`Tags: Microsoft.DBforPostgreSQL/flexibleServers, Microsoft.DBforPostgreSQL/flexibleServers/administrators`

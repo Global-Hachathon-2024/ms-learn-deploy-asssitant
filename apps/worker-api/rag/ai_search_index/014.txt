@@ -1,0 +1,29 @@
+path: quickstarts/microsoft.app/container-app-acr
+---
+description: Create a Container App Environment with a basic Container App from an Azure Container Registry. It also deploys a Log Analytics Workspace to store logs.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: container-app-acr
+languages:
+- json
+- bicep
+---
+# Creates a Container App and Environment with Registry
+
+This template shows how to deploy a Container App leveraging a new Azure Container Registry. 
+
+The Container Registry is seeded with a public container image, and the Container App uses a Managed Identity to pull the container image.
+
+If you're new to **Container Apps**, see:
+
+- [Microsoft Container Apps Documentation](https://docs.microsoft.com/azure/container-apps/)
+- [Quickstarts: Microsoft Container Apps](https://docs.microsoft.com/azure/container-apps/get-started)
+- [Container Apps Pricing](https://azure.microsoft.com/pricing/details/container-apps/)
+
+If you're new to template deployment, see:
+
+- [Azure Resource Manager documentation](https://docs.microsoft.com/azure/azure-resource-manager/)
+
+`Tags: ContainerApp, Container App, Container, Container Registry, ARM Template`

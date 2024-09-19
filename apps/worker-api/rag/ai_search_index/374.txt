@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.web/function-http-trigger
+---
+description: This example deploys an Azure Function app and an HTTP-triggered function inline in the template. It also deploys a Key Vault and populates a secret with the function app's host key.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: function-http-trigger
+languages:
+- bicep
+- json
+---
+# Azure Function app and an HTTP-triggered function
+
+This example deploys an Azure Function app and an HTTP-triggered function inline in the template. It also deploys a Key Vault and populates a secret with the function app's host key.
+
+`Tags: Microsoft.Storage/storageAccounts, Microsoft.Insights/components, Microsoft.Web/serverfarms, Microsoft.Web/sites, Microsoft.Web/sites/functions, httpTrigger, http, Microsoft.KeyVault/vaults, Microsoft.KeyVault/vaults/secrets`

@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.databricks/databricks-workspace-with-managed-services-customer-managed-keys
+---
+description: This template allows you to create an Azure Databricks workspace with Managed Services CMK.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: databricks-workspace-with-managed-services-customer-managed-keys
+languages:
+- bicep
+- json
+---
+# Deploy Azure Databricks Workspace with Managed Services CMK
+
+This template allows you to create a Azure Databricks workspace with managed services and customer managed keys (CMK). For more information, see the <a href="https://learn.microsoft.com/en-us/azure/databricks/security/keys/customer-managed-key-managed-services-azure"> Azure Databricks CMK Documentation.
+
+`Tags: Microsoft.Databricks/workspaces, Microsoft.Resources/deployments, Microsoft.KeyVault/vaults/accessPolicies`

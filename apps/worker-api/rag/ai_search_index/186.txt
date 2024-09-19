@@ -1,0 +1,21 @@
+path: quickstarts/microsoft.documentdb/microsoft-defender-cosmosdb-create-account
+---
+description: Using this ARM template, you can deploy an Azure Cosmos DB account with Microsoft Defender for Azure Cosmos DB enabled. Microsoft Defender for Azure Cosmos DB is an Azure-native layer of security that detects attempts to exploit databases in your Azure Cosmos DB accounts. Microsoft Defender for Azure Cosmos DB detects potential SQL injections, known bad actors based on Microsoft Threat Intelligence, suspicious access patterns, and potential exploitations of your database through compromised identities or malicious insiders.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: microsoft-defender-cosmosdb-create-account
+languages:
+- json
+- bicep
+---
+# Create a Cosmos DB account with Microsoft Defender enabled
+
+Using this ARM template, you can deploy an **Azure Cosmos DB Account** with **Microsoft Defender for Azure Cosmos DB enabled**. Microsoft Defender for Azure Cosmos DB is an Azure-native layer of security that detects attempts to exploit databases in your Azure Cosmos DB accounts. Microsoft Defender for Azure Cosmos DB detects potential SQL injections, known bad actors based on Microsoft Threat Intelligence, suspicious access patterns, and potential exploitations of your database through compromised identities or malicious insiders.
+
+See the [official documentation]( https://go.microsoft.com/fwlink/?linkid=2097603) for more information.
+
+`Tags: Azure Cosmos DB, Microsoft Defender for Azure Cosmos DB, Advanced Threat Protection, Microsoft.DocumentDB/databaseAccounts, Microsoft.Security/advancedThreatProtectionSettings`
+
+`Tags: Microsoft.DocumentDB/databaseAccounts, Microsoft.Security/advancedThreatProtectionSettings`

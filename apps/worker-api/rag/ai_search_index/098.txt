@@ -1,0 +1,24 @@
+path: quickstarts/microsoft.compute/vm-with-rdp-port
+---
+description: Creates a virtual machine and creates a NAT rule for RDP to the VM in load balancer
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: vm-with-rdp-port
+languages:
+- bicep
+- json
+---
+# Virtual machine with an RDP port
+
+This sample template demonstrates how to create a NAT rule in loadbalancer to allow RDP to a vm.
+
+You can connect to the vm using:
+
+* mstsc.exe /v:&lt;publicDnsName&gt;.&lt;location&gt;.cloudapp.azure.com:&lt;rdpPort&gt;
+
+This template deploys the following resources:
+<ul><li>storage account</li><li>vnet</li><li>public ip</li><li>load balancer with a NAT rule for RDP</li><li>a virtual machine</li></ul>
+
+`Tags: Microsoft.Network/publicIPAddresses, Microsoft.Storage/storageAccounts, Microsoft.Network/networkSecurityGroups, Microsoft.Network/virtualNetworks, Microsoft.Network/loadBalancers, Microsoft.Network/networkInterfaces, Microsoft.Compute/virtualMachines`

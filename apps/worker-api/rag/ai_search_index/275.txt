@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.network/front-door-create-redirect
+---
+description: This template creates a Front Door configuration for HTTP to HTTPS redirection.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: front-door-create-redirect
+languages:
+- json
+- bicep
+---
+# Create a Front Door with HTTP to HTTPS redirection
+
+This template creates a basic **Front Door** configuration for HTTP to HTTPS redirection, single default path match '/*' and no custom domain.
+
+`Tags: Microsoft.Network/frontDoors`

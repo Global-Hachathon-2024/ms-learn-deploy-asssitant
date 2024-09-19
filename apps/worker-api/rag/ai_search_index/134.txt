@@ -1,0 +1,23 @@
+path: quickstarts/microsoft.datadog/datadog
+---
+description: This template creates a new Datadog - An Azure Native ISV Service resource and a Datadog organization to monitor resources in your subscription.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: datadog
+languages:
+- bicep
+- json
+---
+# Create a new Datadog Organization
+
+This template deploys a new Datadog – An Azure Native ISV Service resource and creates a new organization in Datadog’s US3 site to monitor resources in your Azure subscription. It has the following capabilities:
+
+- Collecting metrics for all resources, except Virtual Machines, Virtual Machine Scale Sets and App Service Plans.
+
+- Sending subscription activity logs and Azure resource logs for [all defined sources](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/resource-logs-categories?WT.mc_id=Portal-Azure_Marketplace_Datadog).
+
+- Muting the monitor for expected Azure VM Shutdowns. Learn more about Datadog – An Azure Native ISV Service [here](https://aka.ms/ANIS/Datadog/Docs).
+
+`Tags: Microsoft.Datadog/monitors`

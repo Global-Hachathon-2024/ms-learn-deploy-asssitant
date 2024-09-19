@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.cdn/cdn-with-web-app
+---
+description: This template creates a CDN Profile and a CDN Endpoint with a Web App as the origin
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: cdn-with-web-app
+languages:
+- json
+- bicep
+---
+# Create a CDN Profile, a CDN Endpoint and a Web App
+
+This template creates a CDN Profile and a CDN Endpoint with a Web App as the origin.
+
+`Tags: Microsoft.Web/serverfarms, Microsoft.Web/sites, SystemAssigned, Microsoft.Cdn/profiles, Microsoft.Cdn/profiles/endpoints`

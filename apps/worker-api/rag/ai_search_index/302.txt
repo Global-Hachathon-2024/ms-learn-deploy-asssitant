@@ -1,0 +1,25 @@
+path: quickstarts/microsoft.network/traffic-manager-webapp
+---
+description: This template shows how to create an Azure Traffic Manager profile for an App Service.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: traffic-manager-webapp
+languages:
+- json
+- bicep
+---
+# Azure Traffic Manager web app example
+
+This template shows how to create an Azure Traffic Manager profile with an App Service Behind It
+
+The accompanying PowerShell script shows how to create a resource group from the template and read back the Traffic Manager profile details.  Before running the script, edit *azuredeploy.parameters.json* and replace the values marked with *'#####'*.
+
+See also:
+
+- <a href="https://azure.microsoft.com/documentation/articles/traffic-manager-routing-methods/">Traffic Manager routing methods for details of the different routing methods available.
+- <a href="https://msdn.microsoft.com/library/azure/mt163581.aspx">Create or update a Traffic Manager profile for details of the JSON elements relating to a Traffic Manager profile.
+
+`Tags: Azure, Traffic Manager, Microsoft.Web/serverfarms, Microsoft.Web/sites, Microsoft.Network/trafficmanagerprofiles, Microsoft.Network/trafficManagerProfiles/azureEndpoints`
+

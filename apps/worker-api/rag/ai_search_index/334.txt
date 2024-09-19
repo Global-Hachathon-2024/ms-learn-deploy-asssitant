@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.servicebus/servicebus-namespace-vnet
+---
+description: This template enables you to deploy a Service Bus Premium namespace with Virtual Network rule
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: servicebus-namespace-vnet
+languages:
+- json
+- bicep
+---
+# Create a Service Bus namespace Virtual Network rule
+
+For information about using this template, see [Create a Service Bus Virtual Network rule for a Namespace](https://docs.microsoft.com/azure/service-bus-messaging/service-bus-service-endpoints)
+
+`Tags: Microsoft.ServiceBus/namespaces, Microsoft.Network/virtualNetworks, Microsoft.ServiceBus/namespaces/virtualnetworkrules`

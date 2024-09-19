@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.batch/batchaccount-with-storage
+---
+description: This template creates a Batch Account and a storage account.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: batchaccount-with-storage
+languages:
+- bicep
+- json
+---
+# Create a Batch Account using a template
+
+This Azure Resource Manager template (ARM template) creates a batch account resource in Azure. To learn more about how to deploy the template, see the [quickstart](https://docs.microsoft.com/azure/batch/quick-create-template) article.
+
+`Tags: Microsoft.Storage/storageAccounts, Microsoft.Batch/batchAccounts`

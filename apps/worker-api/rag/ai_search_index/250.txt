@@ -1,0 +1,21 @@
+path: quickstarts/microsoft.mobilenetwork/mobilenetwork-create-new-slice
+---
+description: This template creates a slice for an existing mobile network.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: mobilenetwork-create-new-slice
+languages:
+- bicep
+- json
+---
+# Create a slice
+
+This template allows you to create a slice for an existing mobile network.
+
+## Deployment steps
+
+You can click the "deploy to Azure" button at the beginning of this document or follow the instructions for command line deployment using the scripts in the root of this repo.
+
+`Tags: Azure Private 5G Core, Resource Manager templates, ARM templates, Microsoft.MobileNetwork/mobileNetworks/slices, Microsoft.MobileNetwork/mobileNetworks`

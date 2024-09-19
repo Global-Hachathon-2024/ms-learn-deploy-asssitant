@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.appplatform/microservice-apps-enterprise-plan
+---
+description: This template deploys a simple Azure Spring Apps microservice application to run on Azure.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: microservice-apps-enterprise-plan
+languages:
+- bicep
+- json
+---
+# Deploy a simple Azure Spring Apps microservice application
+
+This template deploys the PetClinic microservice to the Azure Spring Apps enterprise plan. For more information about the microservice sample, see [Azure-Samples/spring-petclinic-microservices](https://github.com/Azure-Samples/spring-petclinic-microservices).
+
+`Tags: Azure Spring Apps, Spring Boot, microservice, application, Microsoft.AppPlatform/Spring, apps, deployments, Jar, Microsoft.Resources/deployments, Microsoft.AppPlatform/Spring/apps`

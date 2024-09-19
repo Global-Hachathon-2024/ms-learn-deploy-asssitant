@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.network/route-table-create
+---
+description: This template creates a Route Table with routes
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: route-table-create
+languages:
+- json
+- bicep
+---
+# Route table with routes
+
+This module creates a Route Table with routes and optionally configures a resource delete lock.
+
+`Tags: bicep, route, network, routetable, Microsoft.Network/routeTables, Microsoft.Authorization/locks`

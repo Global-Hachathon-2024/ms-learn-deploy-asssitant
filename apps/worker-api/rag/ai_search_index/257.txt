@@ -1,0 +1,23 @@
+path: quickstarts/microsoft.network/application-gateway-waf-firewall-policy
+---
+description: This template creates an Application Gateway with WAF configured along with a firewall policy
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: application-gateway-waf-firewall-policy
+languages:
+- json
+- bicep
+---
+# Application Gateway with WAF and firewall policy
+
+This module will create an application gateway.
+
+You can optionally configure the following:
+- Web Application Firewall (WAF)
+- Application Gateway Firewall Policy
+- Key vault integration with a managed identity for certificate retrieval
+- Diagnostic logs and resource lock
+
+`Tags: bicep, network, waf, applicationgateway, Microsoft.Network/publicIPAddresses, Microsoft.Insights/diagnosticSettings, Microsoft.Authorization/locks, Microsoft.Network/applicationGateways, Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies, Microsoft.Network/virtualNetworks`

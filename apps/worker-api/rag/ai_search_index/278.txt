@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.network/front-door-health-probes
+---
+description: This template updates your Front Door to change the health probe settings by setting the probe path and also the intervals in which the probes will be sent.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: front-door-health-probes
+languages:
+- json
+- bicep
+---
+# Control Health Probes for your backends on Front Door
+
+This template updates your **Front Door** to change the health probe settings by setting the probe path and also the intervals in which the probes will be sent.
+
+`Tags: Microsoft.Network/frontDoors`

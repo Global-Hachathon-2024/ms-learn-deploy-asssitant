@@ -38,18 +38,23 @@ class Result:
             raise ValueError(f"Invalid URL: {url}")
     
     def __make_stored_url(self, url: str) -> str:
-        # input: "https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=linux%2Cbash%2Cazure-cli%2Cbrowser"
-        # output: "https://github.com/Global-Hachathon-2024/msl-autogen-templates/azure-functions/create-first-function-cli-python+linux+bash+azure-cli+browser"
+        """
+        Make the URL showing the repository and the path
+        Args:
+            url (str): URL to make the stored URL like "https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=linux%2Cbash%2Cazure-cli%2Cbrowser"
+        Returns:
+            str: stored URL like ""https://github.com/Verify-Email-Tool-for-Outlook-new/msl-autogen-templates/azure-functions/create-first-function-cli-python+linux+bash+azure-cli+browser"
+        """
         match = re.search(r'azure/(.*)', url)
         if match:
             last_path = match.group(1)
             if '?tabs=' in last_path:
                 repos_path, params = last_path.split('?tabs=')
                 replaced_params = params.replace(',', '+')
-                return f"{REPOSITORY_URL}/{repos_path}+{replaced_params}.json"
+                return f"{REPOSITORY_URL}/{repos_path}+{replaced_params}/main.json"
             else:
                 repos_path = last_path
-                return f"{REPOSITORY_URL}/{repos_path}.json"
+                return f"{REPOSITORY_URL}/{repos_path}/main.json"
         else:
             raise ValueError(f"Invalid URL: {url}")
         

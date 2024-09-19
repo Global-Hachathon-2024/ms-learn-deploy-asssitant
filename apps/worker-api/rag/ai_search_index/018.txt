@@ -1,0 +1,35 @@
+path: quickstarts/microsoft.app/container-app-dapr-pubsub-servicebus
+---
+description: Create a Dapr pub-sub servicebus app using Container Apps.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: container-app-dapr-pubsub-servicebus
+languages:
+- json
+- bicep
+---
+# Creates a Dapr pub-sub servicebus app using Container Apps
+
+This template shows how to deploy a Dapr pub-sub servicebus application as a **Container App** in a **Container App Environment**. 
+
+The application deploys the Dapr application used in this [Azure sample template](https://github.com/Azure-Samples/pubsub-dapr-nodejs-servicebus). The template itself is optimised for Developers using the [Azure Developer CLI](https://github.com/Azure/azure-dev), whereas this quickstart is more focussed on the container build and Infrastructure deployment as a single deployment unit.
+
+See the [Dapr Container App](https://github.com/Azure/bicep-registry-modules/blob/main/modules/app/dapr-containerapp/README.md) module in the Bicep Registry for more information.
+
+If you're new to **Dapr**, see:
+
+- [Dapr Concepts](https://docs.dapr.io/concepts/)
+
+If you're new to **Container App**, see:
+
+- [Microsoft Container Apps Documentation](https://docs.microsoft.com/azure/container-apps/)
+- [Quickstarts: Microsoft Container Apps](https://docs.microsoft.com/azure/container-apps/get-started)
+- [Container Apps Pricing](https://azure.microsoft.com/pricing/details/container-apps/)
+
+If you're new to template deployment, see:
+
+- [Azure Resource Manager documentation](https://docs.microsoft.com/azure/azure-resource-manager/)
+
+`Tags: Dapr, Pub-sub, Pubsub, ContainerApp, Container App, Container, Service Bus, ServiceBus, ARM Template, Microsoft.OperationalInsights/workspaces, Microsoft.App/managedEnvironments, Microsoft.App/containerApps`

@@ -1,0 +1,27 @@
+path: quickstarts/newrelic.observability/newrelic
+---
+description: This template sets up an 'Azure Native New Relic Service' to monitor resources in your Azure subscription.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: newrelic
+languages:
+- bicep
+- json
+---
+# Create a Azure Native New Relic Resource
+
+This template creates an [Azure Native New Relic Service](https://aka.ms/azurenativenewrelic) resource to monitor resources in your Azure subscription. It has the following capabilities:
+
+- Create and manage a New Relic account for your cloud observability needs.
+
+- Send subscription activity logs and Azure resource logs for [all defined sources](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/supported-logs/logs-index).
+
+- Pull Azure monitor platform metrics for all resources, into New Relic.
+
+- Bulk install New Relic agent extension to monitor your virtual machines and App Services.
+
+Learn more about Azure Native New Relic Service [here](https://aka.ms/azurenativenewrelicdocs).
+
+`Tags: NewRelic.Observability/monitors`

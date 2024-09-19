@@ -1,0 +1,25 @@
+path: quickstarts/microsoft.documentdb/cosmosdb-free
+---
+description: This template creates a free-tier Azure Cosmos DB account for SQL API with a database with shared throughput and container.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: cosmosdb-free
+languages:
+- bicep
+- json
+---
+# Create a free-tier Azure Cosmos DB account
+
+This template will create a free-tier Azure Cosmos account for SQL API in a single region, a database with shared throughput of 1000 RU/s and one container. Accounts in free tier will not be billed for usage of 1000 RU/s or 50 GB of data or less.
+
+> [!IMPORTANT]
+> Only one free-tier account can be created per subscription.
+
+Below are the parameters which can be user configured in the parameters file or template including:
+
+- **Location:** Enter location for primary region.
+- **Account Name:** Enter the database name for the account.
+
+`Tags: Microsoft.DocumentDB/databaseAccounts, Microsoft.DocumentDB/databaseAccounts/sqlDatabases, Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers`

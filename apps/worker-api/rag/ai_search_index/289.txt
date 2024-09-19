@@ -1,0 +1,17 @@
+path: quickstarts/microsoft.network/nsg-create-with-diagnostic-logs
+---
+description: This template creates a Network Security Group with diagnostic logs and a resource lock
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: nsg-create-with-diagnostic-logs
+languages:
+- json
+- bicep
+---
+# Network Security Group with diagnostic logs
+
+This module will create a Network Security group and optionally enable diagnostics logs and a delete lock.
+
+`Tags: bicep, network, nsg, Microsoft.Network/networkSecurityGroups, Microsoft.Insights/diagnosticSettings, Microsoft.Authorization/locks`

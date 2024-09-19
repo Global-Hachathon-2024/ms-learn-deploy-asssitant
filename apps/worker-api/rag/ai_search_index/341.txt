@@ -1,0 +1,18 @@
+path: quickstarts/microsoft.sql/sql-logical-server
+---
+description: This template allows you to create SQL logical server.
+page_type: sample
+products:
+- azure
+- azure-resource-manager
+urlFragment: sql-logical-server
+languages:
+- bicep
+- json
+---
+# SQL logical server
+
+This template allows you to create [Azure SQL logical server](https://docs.microsoft.com/azure/sql-database/sql-database-logical-servers).
+
+`Tags: Azure, SQL logical server, Microsoft.Sql/servers, firewallRules, advancedThreatProtectionSettings, vulnerabilityAssessments, connectionPolicies, Microsoft.Storage/storageAccounts, Microsoft.Authorization/roleAssignments`
+
