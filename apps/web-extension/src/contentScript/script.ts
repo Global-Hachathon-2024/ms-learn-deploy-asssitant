@@ -10,7 +10,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         const h1Text = h1Element.textContent || "";
         if (
           h1Text.includes("Quickstart") ||
-          h1Text.includes("クイックスタート")
+          h1Text.includes("クイックスタート") ||
+          h1Text.includes("クイック スタート")
         ) {
           isQuickstartPage = true;
         }
