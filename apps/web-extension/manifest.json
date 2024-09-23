@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "MS Learn Deploy Assistant",
+  "description": "The MS Learn Deploy Assistant is a powerful browser extension designed to revolutionize the way you deploy Azure resources. By harnessing the capabilities of Large Language Models (LLM), this tool automatically generates ARM templates from Microsoft Azure's Quickstart documentation. With just a single click, users can deploy resources effortlessly, saving valuable time and reducing the complexity of the deployment process.",
   "version": "1.0.0",
   "action": { "default_popup": "index.html" },
   "content_scripts": [
