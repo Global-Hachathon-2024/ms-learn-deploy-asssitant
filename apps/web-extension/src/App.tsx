@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     console.log(import.meta.env.MODE);
     // 現在のタブのURLを取得
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any[]) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       console.log(tabs);
       if (tabs[0].url && tabs[0].title) {
         const url = tabs[0].url;
