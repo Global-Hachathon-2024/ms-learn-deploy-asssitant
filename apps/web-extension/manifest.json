@@ -3,5 +3,11 @@
   "name": "MS Learn Deploy",
   "version": "1.0.0",
   "action": { "default_popup": "index.html" },
+  "content_scripts": [
+    {
+      "matches": ["https://learn.microsoft.com/*"],
+      "js": ["src/contentScript/script.ts"]
+    }
+  ],
   "permissions": ["tabs"]
 }

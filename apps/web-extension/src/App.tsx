@@ -21,26 +21,36 @@ function App() {
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
   useEffect(() => {
-    console.log(import.meta.env.MODE);
     // 現在のタブのURLを取得
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      console.log(tabs);
       if (tabs[0].url && tabs[0].title) {
         const url = tabs[0].url;
-        const title = tabs[0].title;
+        const tabId = tabs[0].id!;
         setCurrentUrl(url);
 
-        // タイトルに「Quickstart」または「クイックスタート」が含まれているかチェック
-        if (
-          title.includes("Quickstart") ||
-          title.includes("クイックスタート")
-        ) {
-          // 対応しているサイトの場合、ステータスを取得
-          pollStatus(url);
-        } else {
-          // 対応していないサイトの場合、エラーメッセージを表示
-          setErrorMessage("このサイトはサポートされていません。");
-        }
+        // コンテンツスクリプトにメッセージを送信
+        chrome.tabs.sendMessage(
+          tabId,
+          { type: "CHECK_QUICKSTART_PAGE" },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              // コンテンツスクリプトが存在しない場合のエラーハンドリング
+              console.error(
+                "コンテンツスクリプトとの通信に失敗しました:",
+                chrome.runtime.lastError
+              );
+              setErrorMessage("このサイトはサポートされていません。");
+            } else {
+              if (response?.isQuickstartPage) {
+                // 対応しているサイトの場合、ステータスを取得
+                pollStatus(url);
+              } else {
+                // 対応していないサイトの場合、エラーメッセージを表示
+                setErrorMessage("このサイトはサポートされていません。");
+              }
+            }
+          }
+        );
       } else {
         setErrorMessage("現在のタブのURLを取得できませんでした。");
       }
@@ -55,7 +65,6 @@ function App() {
         throw new Error("HTTP error, status = " + response.status);
       }
       const data: PollStatusResponse = await response.json();
-      console.log(data);
       setStatus(data.status);
       setStoredUrl(data.url);
     } catch (error) {
