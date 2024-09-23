@@ -47,10 +47,10 @@ async def generate_handler(url: str):
             break
 
         if i == 0:
-            print("Generating a bicep template")
+            logging.info("Generating a bicep template")
             output = deployer.generate_bicep_template(content)
         else:
-            print(f"Retrying to generate a bicep template: {i}")
+            logging.info(f"Retrying to generate a bicep template: {i}")
             output = deployer.fix_bicep_template(message)
 
         extracted_files = extract_code_blocks(output)
@@ -80,10 +80,10 @@ def handle_complete(url: str, is_valid: bool, src_dir: str):
     bicep_path = f"{src_dir}/{BICEP_FILE}"
     parameters_path = f"{src_dir}/{PARAMETERS_FILE}"
     if not os.path.exists(bicep_path):
-        print(f"bicep file not found: {bicep_path}")
+        logging.error(f"bipec file not found: {bicep_path}")
         handle_error(500, "Failed to generate a bicep file")
     if not os.path.exists(f"{src_dir}/{PARAMETERS_FILE}"):
-        print(f"parameters file not found: {parameters_path}")
+        logging.error(f"parameters file not found: {parameters_path}")
         try:
             push_to_github(url, bicep_path, params=None)
         except ValueError as e:

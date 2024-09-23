@@ -16,7 +16,6 @@ def save_file(directory_path, filename, extracted_files):
         print(f"{filename} not found in the output.")
 
 def create_directory_from_url(url):
-    print(url)
     parsed_url = urlparse(url)
     path = parsed_url.path
     query = parsed_url.query

@@ -1,9 +1,9 @@
 import os
-import re
 from pathlib import Path
 
-from github import Github, Auth, Repository
+from database import make_stored_dirpath
 
+from github import Github, Auth, Repository
 from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent / "../.env")
@@ -55,9 +55,9 @@ def push_to_github(url: str, bicep: str, params: str) -> None:
 def push(repo: Repository, path: str, url: str) -> None:
     with open(path, 'r') as file:
         content = file.read()
-    stored_dir = make_stored_path(url)
+    stored_dir = make_stored_dirpath(url, is_github_url=False)
     filename = Path(path).name
-    full_path = f'templates/{stored_dir}/{filename}'
+    full_path = f'{stored_dir}/{filename}'
     commit_message = f'generate a {filename} automatically for {url}'
 
     try:
@@ -68,27 +68,3 @@ def push(repo: Repository, path: str, url: str) -> None:
         contents = None
         print(f"the file {full_path} does not exist and will be created")
         repo.create_file(full_path, commit_message, content)
-
-def make_stored_path(url: str) -> str:
-    """
-    Generate a stored path from the given URL, which doesn't end with '/'
-    Args:
-        url (str): MS Learn URL for Quick Start to generate a stored path
-    Returns:
-        str: stored path
-    """
-    # input: "https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=linux%2Cbash%2Cazure-cli%2Cbrowser"
-    # output: "azure-functions/create-first-function-cli-python+linux+bash+azure-cli+browser"
-    match = re.search(r'azure/(.*)', url)
-    if match:
-        last_path = match.group(1)
-        if '?tabs=' in last_path:
-            repos_path, params = last_path.split('?tabs=')
-            replaced_params = params.replace(',', '+')
-            replaced_params = params.replace('%2C', '+')
-            return f"{repos_path}+{replaced_params}"
-        else:
-            repos_path = last_path
-            return f"{repos_path}"
-    else:
-        raise ValueError(f"Invalid URL: {url}")
