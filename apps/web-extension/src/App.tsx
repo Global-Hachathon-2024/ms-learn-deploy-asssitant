@@ -120,14 +120,16 @@ function App() {
         return (
           <div>
             <p>
-              テンプレートを生成中です。他のユーザーが生成中の場合もあります。
+              テンプレートの生成が進行中です。これはあなた、または他のユーザーによって開始されました。しばらくお待ちください。
             </p>
           </div>
         );
       case "completed":
         return (
           <div>
-            <p>テンプレートの生成が完了しました。</p>
+            <p>
+              テンプレートの生成が完了しています。これはあなた、または他のユーザーによって生成されました。
+            </p>
             <a href={storedUrl} target="_blank" rel="noopener noreferrer">
               テンプレートを見る
             </a>
@@ -136,7 +138,9 @@ function App() {
       case "invalid":
         return (
           <div>
-            <p>生成されたテンプレートは適切ではありません。</p>
+            <p>
+              既存のテンプレートは適切ではありません。これはあなた、または他のユーザーによって以前に生成されました。
+            </p>
             <button onClick={handleGenerate}>再生成</button>
             <p>手動で修正して貢献してみてください:</p>
             <a href={storedUrl} target="_blank" rel="noopener noreferrer">
