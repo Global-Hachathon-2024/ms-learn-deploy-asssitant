@@ -29,6 +29,17 @@ async def ping():
 
 @app.post("/templates")
 async def generate_handler(url: str):
+    result = db_client.get(url)
+    if result == None:
+        handle_error(500, "Failed to get a result from the database")
+
+    completed_valid = not result.in_progress and result.is_valid
+    if completed_valid:
+        handle_error(400, "The URL is already processed")
+    not_completed_valid = result.in_progress and result.is_valid
+    if not_completed_valid:
+        handle_error(500, "The database is in an inconsistent state")
+
     url = convert_to_en_us_url(url)
     directory_path = create_directory_from_url(url)
     code, content = scrape_web_content(url)
@@ -60,29 +71,17 @@ async def generate_handler(url: str):
         success, message = deploy_bicep(directory_path)
 
     if success:
-        handle_complete(url, True, directory_path)
+        db_client.finish(url, is_valid=True)
+        logging.info(f"Generated ARM template for {url} successfully")
     else:
-        handle_complete(url, False, directory_path)
-
-
-# TODO: handle error and response to the client gracefully
-def handle_complete(url: str, is_valid: bool, src_dir: str):
-    """
-    Handle the completion of generating an ARM template
-    Args:
-        url (str): URL of the page
-        is_valid (bool): Whether the generated template is valid or not
-        src_dir (str): Directory path of the generated bicep and parameters files
-    """
-    logging.info(f"Generated ARM template for {url} successfully")
-    db_client.finish(url, is_valid)
-
-    bicep_path = f"{src_dir}/{BICEP_FILE}"
-    parameters_path = f"{src_dir}/{PARAMETERS_FILE}"
+        db_client.finish(url, is_valid=False)
+    
+    bicep_path = f"{directory_path}/{BICEP_FILE}"
+    parameters_path = f"{directory_path}/{PARAMETERS_FILE}"
     if not os.path.exists(bicep_path):
-        logging.error(f"bipec file not found: {bicep_path}")
+        logging.error(f"bicep file not found: {bicep_path}")
         handle_error(500, "Failed to generate a bicep file")
-    if not os.path.exists(f"{src_dir}/{PARAMETERS_FILE}"):
+    if not os.path.exists(f"{directory_path}/{PARAMETERS_FILE}"):
         logging.error(f"parameters file not found: {parameters_path}")
         try:
             push_to_github(url, bicep_path, params=None)
