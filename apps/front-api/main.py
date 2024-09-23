@@ -4,12 +4,20 @@ import datetime
 from azure.storage.queue import QueueServiceClient
 from database import DatabaseClient, Result
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 class GenerateRequest(BaseModel):
     url: str
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Azure Storage の接続文字列
 connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
