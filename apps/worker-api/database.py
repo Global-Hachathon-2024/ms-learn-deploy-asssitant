@@ -117,9 +117,9 @@ def make_stored_url(url: str) -> str:
         if '?tabs=' in last_path:
             repos_path, params = last_path.split('?tabs=')
             replaced_params = params.replace(',', '+')
-            return f"{REPOSITORY_URL}/{repos_path}+{replaced_params}/main.json"
+            return f"{REPOSITORY_URL}/blob/main/templates/{repos_path}+{replaced_params}/main.json"
         else:
             repos_path = last_path
-            return f"{REPOSITORY_URL}/{repos_path}/main.json"
+            return f"{REPOSITORY_URL}/blob/main/templates/{repos_path}/main.json"
     else:
         raise ValueError(f"Invalid URL: {url}")
