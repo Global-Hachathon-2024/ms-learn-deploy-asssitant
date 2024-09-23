@@ -9,7 +9,7 @@ from database import DatabaseClient
 from utils.parse import extract_code_blocks
 from utils.azcommand import deploy_bicep
 from utils.filesys import save_files, create_directory_from_url
-from utils.github import push_to_github
+from utils.repository import push_to_github
 from utils.web_scraper import scrape_web_content
 
 load_dotenv()
@@ -83,9 +83,15 @@ def handle_complete(url: str, is_valid: bool, src_dir: str):
         handle_error(500, "Failed to generate a bicep file")
     if not os.path.exists(f"{src_dir}/{PARAMETERS_FILE}"):
         print(f"parameters file not found: {parameters_path}")
-        push_to_github(url, bicep_path, params=None)
+        try:
+            push_to_github(url, bicep_path, params=None)
+        except ValueError as e:
+            handle_error(500, "Failed to push the bicep file", internal_msg=str(e))
     else:
-        push_to_github(url, bicep_path, params=parameters_path)
+        try:
+            push_to_github(url, bicep_path, params=parameters_path)
+        except:
+            handle_error(500, "Failed to push the bicep and parameters files", internal_msg=str(e))
 
 def handle_error(code: int, reponse_msg: str, **kwargs: dict):
     internal_msg = kwargs.get("internal_msg")
