@@ -20,6 +20,7 @@ def deploy_bicep(directory_path):
         os.path.join(directory_path, os.environ.get("PARAMETERS_FILE")),
     ]
 
+    # TODO: プロビジョニングが成功したかどうかをチェックする
     try:
         result = subprocess.run(command, check=True, capture_output=True, text=True, shell=True)
         return True, result.stdout

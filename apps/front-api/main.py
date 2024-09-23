@@ -1,8 +1,9 @@
-import os, re
-import datetime
+import os
 
+from database import DatabaseClient, convert_to_en_us_url
+
+from dotenv import load_dotenv
 from azure.storage.queue import QueueServiceClient
-from database import DatabaseClient, Result
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 # Azure Storage の接続文字列
+load_dotenv()
 connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 queue_name = "job-queue"
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
@@ -32,34 +34,26 @@ async def ping():
 
 @app.get("/poll_status")
 async def poll_status(url: str):
-    url = convert_to_en_us_url(url)
-    result = Result(url, datetime.datetime.now())
     db_client = DatabaseClient(connection_string)
-
-    status = db_client.get_result(result.category, result.url_hash)
-    if status == None: # not in database yet
+    result = db_client.get(url)
+    if result == None: # not in database yet
         return {"status": "uninitialized", "url": ""}
     else: 
-        if status["inProgress"]: # inprogress
+        if result.in_progress:
             return {"status": "inProgress", "url": ""}
         else: # already in database 
-            if status ["isValid"]:
-                return {"status": "completed", "url": status["storedUrl"]}
+            if result.is_valid:
+                return {"status": "completed", "url": result.stored_url}
             else:
-                return {"status": "invalid", "url": status["storedUrl"]}
+                return {"status": "invalid", "url": result.stored_url}
 
 @app.post("/generate")
 async def generate(url_request: GenerateRequest):
-    url = convert_to_en_us_url(url_request.url)
-    result = Result(url, datetime.datetime.now())
+    url = url_request.url
     db_client = DatabaseClient(connection_string)
-
-    status = db_client.get_result(result.category, result.url_hash)
-    if status == None:
-        db_client.insert(result)
+    result = db_client.get(url)
+    if result == None:
+        db_client.insert(url)
+        url = convert_to_en_us_url(url)
         queue_client.send_message(url)
     return {"status": "inProgress", "url": ""}
-
-def convert_to_en_us_url(url):
-    converted_url = re.sub(r'(https://learn\.microsoft\.com/)([^/]+/)', r'\1en-us/', url)
-    return converted_url

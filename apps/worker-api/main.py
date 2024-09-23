@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 
 from generate import BicepDeployer
-from database import DatabaseClient
+from database import DatabaseClient, convert_to_en_us_url
 from utils.parse import extract_code_blocks
 from utils.azcommand import deploy_bicep
 from utils.filesys import save_files, create_directory_from_url
@@ -29,6 +29,7 @@ async def ping():
 
 @app.post("/templates")
 async def generate_handler(url: str):
+    url = convert_to_en_us_url(url)
     directory_path = create_directory_from_url(url)
     code, content = scrape_web_content(url)
     if code != 200:

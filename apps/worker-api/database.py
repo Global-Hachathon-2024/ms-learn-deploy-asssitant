@@ -1,13 +1,17 @@
 import hashlib
+import logging
 import re
 
 from azure.data.tables import TableClient
 
 REPOSITORY_URL = "https://github.com/Global-Hachathon-2024/msl-autogen-templates"
+table_name = "results"
 
 class Result:
     def __init__(self, url: str):
         url = rm_fragment(url)
+        url = convert_to_en_us_url(url)
+        print(f'!!!url: {url}')
 
         self.category = parse_get_category(url)
         self.url_hash = hashlib.sha256(url.encode()).hexdigest()
@@ -50,7 +54,7 @@ class DatabaseClient:
         return cls._instance
     
     def _initialize(self, conn_str: str):
-        self.table_client = TableClient.from_connection_string(conn_str, table_name="results")
+        self.table_client = TableClient.from_connection_string(conn_str, table_name=table_name)
     
     def get(self, url: str) -> Result:
         """
@@ -61,11 +65,25 @@ class DatabaseClient:
             Result: Result object
         """
         url = rm_fragment(url)
-        url_hash = hashlib.sha256(url.encode()).hexdigest()
-        category= parse_get_category(url)
-        entity = self.table_client.get_entity(partition_key=category, row_key=url_hash)
-        return Result.from_entity(url, entity)
+        url = convert_to_en_us_url(url)
+        try:
+            category= parse_get_category(url)
+            url_hash = hashlib.sha256(url.encode()).hexdigest()
+            print(f'!!!get category: {category}, url_hash: {url_hash}')
+            entity = self.table_client.get_entity(partition_key=category, row_key=url_hash)
+            return Result.from_entity(url, entity)
+        except Exception as e:
+            logging.error(f"Failed to get an entity: {e}")
+            return None
 
+    def insert(self, url: str):
+        url = decode_camma(url)
+        result = Result(url)
+        entity = result.to_entity()
+        print(f'!!!insert category: {result.category}, url_hash: {result.url_hash}')
+        self.table_client.create_entity(entity=entity)
+        logging.info(f"Inserted a new entity: {entity}")
+    
     def finish(self, url: str, is_valid: bool):
         """
         Change the status of result to finish
@@ -87,7 +105,12 @@ def rm_fragment(url: str) -> str:
     Returns:
         str: URL without the fragment like "https://learn.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-portal"
     """
-    return url.split('#')[0]
+    if '#' in url:
+        url_origin = url
+        fragment = url.split('#')[1]
+        return url_origin.replace(fragment, '')
+    else:
+        return url
 
 def parse_get_category(url: str) -> str:
     """
@@ -123,3 +146,10 @@ def make_stored_url(url: str) -> str:
             return f"{REPOSITORY_URL}/blob/main/templates/{repos_path}/main.json"
     else:
         raise ValueError(f"Invalid URL: {url}")
+
+def convert_to_en_us_url(url):
+    converted_url = re.sub(r'(https://learn\.microsoft\.com/)([^/]+/)', r'\1en-us/', url)
+    return converted_url
+
+def decode_camma(url: str) -> str:
+    return url.replace('%2C', ',')
