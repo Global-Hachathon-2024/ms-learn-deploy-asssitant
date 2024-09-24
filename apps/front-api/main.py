@@ -23,6 +23,8 @@ app.add_middleware(
 # Azure Storage の接続文字列
 load_dotenv()
 connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+# TODO: フロントエンドのURLを環境変数から取得する必要がありそう
+# FRONT_API_URL = os.getenv("FRONT_API_URL")
 queue_name = "job-queue"
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
 queue_client = queue_service_client.get_queue_client(queue_name)
@@ -41,8 +43,15 @@ async def poll_status(url: str):
     else: 
         if result.in_progress:
             return {"status": "inProgress", "url": ""}
-        else: # already in database 
+        else: # already in database
             if result.is_valid:
+                # TODO: GitHubのリポジトリからダウンロードする必要がある
+                content = ""
+                # TODO: ダウンロードしたファイルをローカルの/static/templates/に保存する
+                # with open("static/templates/main.json", "w") as f:
+                #     f.write(content)
+                # TODO: パブリックなURLを組み立てて返す
+                url = f"{FRONT_API_URL}/static/templates/main.json"
                 return {"status": "completed", "url": result.stored_url}
             else:
                 return {"status": "invalid", "url": result.stored_url}
