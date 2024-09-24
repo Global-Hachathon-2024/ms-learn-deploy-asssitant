@@ -1,5 +1,4 @@
 import hashlib
-import logging
 import re
 
 from azure.data.tables import TableClient
@@ -11,7 +10,6 @@ class Result:
     def __init__(self, url: str):
         url = rm_fragment(url)
         url = convert_to_en_us_url(url)
-        print(f'!!!url: {url}')
 
         self.category = parse_get_category(url)
         self.url_hash = hashlib.sha256(url.encode()).hexdigest()
@@ -66,23 +64,28 @@ class DatabaseClient:
         """
         url = rm_fragment(url)
         url = convert_to_en_us_url(url)
+        entity_info = ""
         try:
             category= parse_get_category(url)
             url_hash = hashlib.sha256(url.encode()).hexdigest()
-            print(f'!!!get category: {category}, url_hash: {url_hash}')
+            entity_info = f"category: {category}, url: {url}, url_hash: {url_hash}"
+            print(entity_info)
             entity = self.table_client.get_entity(partition_key=category, row_key=url_hash)
             return Result.from_entity(url, entity)
         except Exception as e:
-            logging.error(f"Failed to get an entity: {e}")
-            return None
+            raise ValueError(f"Failed to get an entity, {entity_info} : {e}")
 
     def insert(self, url: str):
-        url = decode_camma(url)
-        result = Result(url)
-        entity = result.to_entity()
-        print(f'!!!insert category: {result.category}, url_hash: {result.url_hash}')
-        self.table_client.create_entity(entity=entity)
-        logging.info(f"Inserted a new entity: {entity}")
+        result_info = ""
+        try:
+            url = decode_camma(url)
+            result = Result(url)
+            result_info = f"category: {result.category}, url: {url}, url_hash: {result.url_hash}"
+            print(f"Inserting a new result: {result_info}")
+            entity = result.to_entity()
+            self.table_client.create_entity(entity=entity)
+        except Exception as e:
+            raise ValueError(f"Failed to insert a new entity, {result_info} : {e}")
     
     def finish(self, url: str, is_valid: bool):
         """
@@ -134,18 +137,37 @@ def make_stored_url(url: str) -> str:
     Returns:
         str: stored URL like ""https://github.com/Verify-Email-Tool-for-Outlook-new/msl-autogen-templates/azure-functions/create-first-function-cli-python+linux+bash+azure-cli+browser"
     """
+    stored_dirpath = make_stored_dirpath(url, is_github_url=True)
+    return f"{REPOSITORY_URL}/{stored_dirpath}/main.json"
+
+# NOTE: This function is shared between database.py and repository.py
+def make_stored_dirpath(url: str, is_github_url=False) -> str:
+    """
+    Generate a stored path from the given URL, which doesn't start and end with '/'
+    Args:
+        url (str): MS Learn URL for Quick Start to generate a stored path
+        is_github_url (bool): Whether the URL is a GitHub URL or not
+    Returns:
+        str: stored path
+    """
+    # input: "https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=linux%2Cbash%2Cazure-cli%2Cbrowser"
+    # output: "azure-functions/create-first-function-cli-python+linux+bash+azure-cli+browser"
+    
     match = re.search(r'azure/(.*)', url)
     if match:
         last_path = match.group(1)
         if '?tabs=' in last_path:
             repos_path, params = last_path.split('?tabs=')
             replaced_params = params.replace(',', '+')
-            return f"{REPOSITORY_URL}/blob/main/templates/{repos_path}+{replaced_params}/main.json"
+            dirpath = f"blob/main/templates/{repos_path}+{replaced_params}" if is_github_url else f"templates/{repos_path}+{replaced_params}"
+            return dirpath
         else:
             repos_path = last_path
-            return f"{REPOSITORY_URL}/blob/main/templates/{repos_path}/main.json"
+            dirpath = f"blob/main/templates/{repos_path}" if is_github_url else f"templates/{repos_path}"
+            return dirpath
     else:
         raise ValueError(f"Invalid URL: {url}")
+
 
 def convert_to_en_us_url(url):
     converted_url = re.sub(r'(https://learn\.microsoft\.com/)([^/]+/)', r'\1en-us/', url)

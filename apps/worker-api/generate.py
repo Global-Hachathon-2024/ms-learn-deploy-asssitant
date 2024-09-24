@@ -15,15 +15,9 @@ class BicepDeployer:
         AZURE_SEARCH_ENDPOINT = os.environ.get("AZURE_SEARCH_ENDPOINT")
         AZURE_SEARCH_ADMIN_KEY = os.environ.get("AZURE_SEARCH_ADMIN_KEY")
         INDEX_NAME = os.environ.get("INDEX_NAME")
-        # AZURE_OPENAI_API_KEY = os.environ.get("AOAIAZURE_OPENAI_API_KEY")
-        # AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT")
-        # OPENAI_API_VERSION = os.environ.get("OPENAI_API_VERSION")
 
         if not AZURE_SEARCH_ENDPOINT or not AZURE_SEARCH_ADMIN_KEY or not INDEX_NAME:
             raise ValueError("Please provide the Azure Search endpoint, admin key, and index name in the .env file")
-        # print(f"Using Azure OpenAI API key: {AZURE_OPENAI_API_KEY}")
-        # print(f"Using Azure OpenAI endpoint: {AZURE_OPENAI_ENDPOINT}")
-        # print(f"Using OpenAI API version: {OPENAI_API_VERSION}")
 
         with open(Path(__file__).parent / "prompts/system.txt", "r") as f:
             self.system_prompt = f.read()

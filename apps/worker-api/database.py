@@ -1,5 +1,4 @@
 import hashlib
-import logging
 import re
 
 from azure.data.tables import TableClient
@@ -65,21 +64,28 @@ class DatabaseClient:
         """
         url = rm_fragment(url)
         url = convert_to_en_us_url(url)
+        entity_info = ""
         try:
             category= parse_get_category(url)
             url_hash = hashlib.sha256(url.encode()).hexdigest()
+            entity_info = f"category: {category}, url: {url}, url_hash: {url_hash}"
+            print(entity_info)
             entity = self.table_client.get_entity(partition_key=category, row_key=url_hash)
             return Result.from_entity(url, entity)
         except Exception as e:
-            logging.error(f"Failed to get an entity: {e}")
-            return None
+            raise ValueError(f"Failed to get an entity, {entity_info} : {e}")
 
     def insert(self, url: str):
-        url = decode_camma(url)
-        result = Result(url)
-        entity = result.to_entity()
-        self.table_client.create_entity(entity=entity)
-        logging.info(f"Inserted a new entity: {entity}")
+        result_info = ""
+        try:
+            url = decode_camma(url)
+            result = Result(url)
+            result_info = f"category: {result.category}, url: {url}, url_hash: {result.url_hash}"
+            print(f"Inserting a new result: {result_info}")
+            entity = result.to_entity()
+            self.table_client.create_entity(entity=entity)
+        except Exception as e:
+            raise ValueError(f"Failed to insert a new entity, {result_info} : {e}")
     
     def finish(self, url: str, is_valid: bool):
         """

@@ -4,7 +4,7 @@ from database import DatabaseClient, convert_to_en_us_url
 
 from dotenv import load_dotenv
 from azure.storage.queue import QueueServiceClient
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -53,7 +53,12 @@ async def generate(url_request: GenerateRequest):
     db_client = DatabaseClient(connection_string)
     result = db_client.get(url)
     if result == None:
-        db_client.insert(url)
+        print("Result is None so insert the url to the database and send a message to the queue")
+        try:
+            db_client.insert(url)
+        except Exception as e:
+            print(f"Failed to insert the url to the database: {str(e)}")
+            raise HTTPException(status_code=500, detail="Failed to insert the url to the database")
         url = convert_to_en_us_url(url)
         queue_client.send_message(url)
     return {"status": "inProgress", "url": ""}
