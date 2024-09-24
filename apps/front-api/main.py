@@ -51,7 +51,7 @@ async def poll_status(url: str):
                 # with open("static/templates/main.json", "w") as f:
                 #     f.write(content)
                 # TODO: パブリックなURLを組み立てて返す
-                url = f"{FRONT_API_URL}/static/templates/main.json"
+                # url = f"{FRONT_API_URL}/static/templates/main.json"
                 return {"status": "completed", "url": result.stored_url}
             else:
                 return {"status": "invalid", "url": result.stored_url}
@@ -60,8 +60,10 @@ async def poll_status(url: str):
 async def generate(url_request: GenerateRequest):
     url = url_request.url
     db_client = DatabaseClient(connection_string)
-    result = db_client.get(url)
-    if result == None:
+    try:
+        db_client.get(url)
+    except Exception as e:
+        print(f"Failed to get the result from the database: {str(e)}")
         print("Result is None so insert the url to the database and send a message to the queue")
         try:
             db_client.insert(url)

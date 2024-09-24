@@ -3,6 +3,8 @@ import logging
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 from generate import BicepDeployer
 from database import DatabaseClient, convert_to_en_us_url
@@ -17,10 +19,20 @@ BICEP_FILE = os.environ.get("BICEP_FILE")
 PARAMETERS_FILE = os.environ.get("PARAMETERS_FILE")
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 db_client = DatabaseClient(conn_str)
 
 MAX_RETRIES = 3
+
+class GenerateRequest(BaseModel):
+    url: str
 
 # just for health check
 @app.get("/ping")
@@ -28,7 +40,8 @@ async def ping():
     return "pong"
 
 @app.post("/templates")
-async def generate_handler(url: str):
+async def generate_handler(url_request: GenerateRequest):
+    url = url_request.url
     try:
         result = db_client.get(url)
     except Exception as e:
@@ -128,7 +141,7 @@ async def generate_handler(url: str):
                 return {"status": "valid", "url": url}
             else:
                 return {"status": "invalid", "url": url}
-        except:
+        except ValueError as e:
             db_client.finish(url, is_valid=False)
             handle_error(500, "Failed to push the bicep and parameters files", internal_msg=str(e))
 
