@@ -32,6 +32,9 @@ queue_name = "job-queue"
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
 queue_client = queue_service_client.get_queue_client(queue_name)
 
+STATIC_DIR = "static"
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
 # just for health check
 @app.get("/ping")
 async def ping():
@@ -53,9 +56,9 @@ async def poll_status(url: str):
                 data = response.json()
 
                 file_name = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-                with open(f"static/templates/{file_name}.json", "w") as f:
+                with open(f"static/{file_name}.json", "w") as f:
                     f.write(data)
-                return_url = f"{FRONT_API_URL}/static/templates/{file_name}.json"
+                return_url = f"{FRONT_API_URL}/static/{file_name}.json"
                 
                 return {"status": "completed", "url": return_url}
             else:
