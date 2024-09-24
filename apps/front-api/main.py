@@ -56,8 +56,8 @@ async def poll_status(url: str):
                 data = response.json()
 
                 file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-                with open(f"static/{file_name}.json", "w") as f:
-                    f.write(data)
+                with open(f'static/{file_name}.json', 'w') as json_file:
+                    json.dump(data, json_file)
                 return_url = f"{FRONT_API_URL}/static/{file_name}.json"
                 
                 return {"status": "completed", "url": return_url}

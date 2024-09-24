@@ -164,6 +164,8 @@ cython_debug/
 # Ignore all generated files
 apps/worker-api/generated/*
 !apps/worker-api/generated/.gitkeep
+apps/front-api/static/*
+!apps/front-api/static/.gitkeep
 
 # ignore all archives
 *.zip
