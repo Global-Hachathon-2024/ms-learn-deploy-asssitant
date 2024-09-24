@@ -1,9 +1,0 @@
-{
-  "recommendations": [
-    "ms-azuretools.vscode-azurefunctions",
-    "ms-python.python",
-    "github.copilot",
-    "github.copilot-chat",
-    "vscode-icons-team.vscode-icons"
-  ]
-}

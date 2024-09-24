@@ -1,11 +1,15 @@
 import os
+import requests
+import json
 
 from database import DatabaseClient, convert_to_en_us_url
+from datetime import datetime
 
 from dotenv import load_dotenv
 from azure.storage.queue import QueueServiceClient
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 class GenerateRequest(BaseModel):
@@ -23,8 +27,7 @@ app.add_middleware(
 # Azure Storage の接続文字列
 load_dotenv()
 connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-# TODO: フロントエンドのURLを環境変数から取得する必要がありそう
-# FRONT_API_URL = os.getenv("FRONT_API_URL")
+FRONT_API_URL = os.getenv("FRONT_API_URL")
 queue_name = "job-queue"
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
 queue_client = queue_service_client.get_queue_client(queue_name)
@@ -45,14 +48,16 @@ async def poll_status(url: str):
             return {"status": "inProgress", "url": ""}
         else: # already in database
             if result.is_valid:
-                # TODO: GitHubのリポジトリからダウンロードする必要がある
-                content = ""
-                # TODO: ダウンロードしたファイルをローカルの/static/templates/に保存する
-                # with open("static/templates/main.json", "w") as f:
-                #     f.write(content)
-                # TODO: パブリックなURLを組み立てて返す
-                url = f"{FRONT_API_URL}/static/templates/main.json"
-                return {"status": "completed", "url": result.stored_url}
+                raw_url = convert_to_raw_url(result.stored_url)
+                response = requests.get(raw_url)
+                data = response.json()
+
+                file_name = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+                with open(f"static/templates/{file_name}.json", "w") as f:
+                    f.write(data)
+                return_url = f"{FRONT_API_URL}/static/templates/{file_name}.json"
+                
+                return {"status": "completed", "url": return_url}
             else:
                 return {"status": "invalid", "url": result.stored_url}
 
@@ -71,3 +76,16 @@ async def generate(url_request: GenerateRequest):
         url = convert_to_en_us_url(url)
         queue_client.send_message(url)
     return {"status": "inProgress", "url": ""}
+
+
+
+def convert_to_raw_url(github_url):
+    base_url = github_url.replace("https://github.com/", "")
+    
+    parts = base_url.split("/blob/")
+    repo_path = parts[0]
+    file_path = parts[-1]
+    
+    raw_url = f"https://raw.githubusercontent.com/{repo_path}/refs/heads/{file_path}"
+    
+    return raw_url
