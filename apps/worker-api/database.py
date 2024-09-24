@@ -8,8 +8,7 @@ table_name = "results"
 
 class Result:
     def __init__(self, url: str):
-        url = rm_fragment(url)
-        url = convert_to_en_us_url(url)
+        url = normalize_url(url)
 
         self.category = parse_get_category(url)
         self.url_hash = hashlib.sha256(url.encode()).hexdigest()
@@ -62,8 +61,7 @@ class DatabaseClient:
         Returns:
             Result: Result object
         """
-        url = rm_fragment(url)
-        url = convert_to_en_us_url(url)
+        url = normalize_url(url)
         entity_info = ""
         try:
             category= parse_get_category(url)
@@ -78,7 +76,7 @@ class DatabaseClient:
     def insert(self, url: str):
         result_info = ""
         try:
-            url = decode_camma(url)
+            url = normalize_url(url)
             result = Result(url)
             result_info = f"category: {result.category}, url: {url}, url_hash: {result.url_hash}"
             print(f"Inserting a new result: {result_info}")
@@ -99,21 +97,6 @@ class DatabaseClient:
         result.is_valid = is_valid
         entity = result.to_entity()
         self.table_client.update_entity(entity=entity, mode='replace')
-
-def rm_fragment(url: str) -> str:
-    """
-    Remove the fragment from the URL
-    Args:
-        url (str): URL to remove the fragment like "https://learn.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-portal#prerequisites"
-    Returns:
-        str: URL without the fragment like "https://learn.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-portal"
-    """
-    if '#' in url:
-        url_origin = url
-        fragment = url.split('#')[1]
-        return url_origin.replace(fragment, '')
-    else:
-        return url
 
 def parse_get_category(url: str) -> str:
     """
@@ -158,7 +141,7 @@ def make_stored_dirpath(url: str, is_github_url=False) -> str:
         last_path = match.group(1)
         if '?tabs=' in last_path:
             repos_path, params = last_path.split('?tabs=')
-            replaced_params = params.replace(',', '+')
+            replaced_params = normalize_url(params)
             dirpath = f"blob/main/templates/{repos_path}+{replaced_params}" if is_github_url else f"templates/{repos_path}+{replaced_params}"
             return dirpath
         else:
@@ -168,10 +151,48 @@ def make_stored_dirpath(url: str, is_github_url=False) -> str:
     else:
         raise ValueError(f"Invalid URL: {url}")
 
+def normalize_url(url: str) -> str:
+    """
+    Normalize the URL
+    Args:
+        url (str): URL to normalize like "https://learn.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-portal"
+    Returns:
+        str: normalized URL like "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal"
+    """
+    url = rm_fragment(url)
+    url = convert_to_en_us_url(url)
+    if '?tabs=' in url:
+        url = url.replace('?tabs=', '+')
+    if '&pivots=' in url:
+        url = url.replace('&pivots=', '+')
+    if ',' in url:
+        url = url.replace(',', '+')
+    if '%2C' in url:
+        url = decode_camma(url)
+    return url
+
+def rm_fragment(url: str) -> str:
+    """
+    Remove the fragment from the URL
+    Args:
+        url (str): URL to remove the fragment like "https://learn.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-portal#prerequisites"
+    Returns:
+        str: URL without the fragment like "https://learn.microsoft.com/ja-jp/azure/storage/blobs/storage-quickstart-blobs-portal"
+    """
+    if '#' in url:
+        url_origin = url
+        fragment = url.split('#')[1]
+        return url_origin.replace(fragment, '')
+    else:
+        return url
 
 def convert_to_en_us_url(url):
+    if 'learn.microsoft.com' not in url:
+        return url
     converted_url = re.sub(r'(https://learn\.microsoft\.com/)([^/]+/)', r'\1en-us/', url)
     return converted_url
 
 def decode_camma(url: str) -> str:
+    if '%2C' not in url:
+        return url
     return url.replace('%2C', ',')

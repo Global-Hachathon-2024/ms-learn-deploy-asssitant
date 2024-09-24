@@ -76,6 +76,7 @@ class DatabaseClient:
     def insert(self, url: str):
         result_info = ""
         try:
+            url = normalize_url(url)
             result = Result(url)
             result_info = f"category: {result.category}, url: {url}, url_hash: {result.url_hash}"
             print(f"Inserting a new result: {result_info}")
@@ -163,8 +164,8 @@ def normalize_url(url: str) -> str:
     url = convert_to_en_us_url(url)
     if '?tabs=' in url:
         url = url.replace('?tabs=', '+')
-    if '?pivots=' in url:
-        url = url.replace('?pivots=', '+')
+    if '&pivots=' in url:
+        url = url.replace('&pivots=', '+')
     if '%2C' in url:
         url = decode_camma(url)
     return url
